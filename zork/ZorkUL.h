@@ -21,6 +21,9 @@ private:
     void createItems();
     void displayItems();
 
+    //Teleportation function
+    void teleportation(Command command);
+
 public:
 	ZorkUL();
 	void play();
