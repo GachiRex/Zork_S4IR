@@ -21,13 +21,13 @@ private:
     void createItems();
     void displayItems();
 
-    //Teleportation function
-    void teleportation(Command command);
 
 public:
 	ZorkUL();
 	void play();
 	string go(string direction);
+	//Teleportation function
+	void teleportation(Room dst);
 };
 
 #endif /*ZORKUL_H_*/
