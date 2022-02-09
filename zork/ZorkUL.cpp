@@ -14,7 +14,7 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms()  {
-	Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
+	Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
 
 	a = new Room("a");
         a->addItem(new Item("x", 1, 11));
@@ -31,7 +31,7 @@ void ZorkUL::createRooms()  {
 	i = new Room("i");
 
 	//New room: j
-	z = new Room("j");
+	j = new Room("j");
 
 //             (N, E, S, W)
 	a->setExits(f, b, d, c);
@@ -45,7 +45,7 @@ void ZorkUL::createRooms()  {
     i->setExits(NULL, d, NULL, NULL);
 
     //New room : j
-    z->setExits(i, NULL, NULL, NULL);
+    j->setExits(i, NULL, NULL, NULL);
 
         currentRoom = a;
 }
@@ -199,8 +199,8 @@ string ZorkUL::go(string direction) {
 }
 
 //Teleportation function
-void ZorkUL::teleportation(string dst) {
-	if (dst < a || dst > j)
+void ZorkUL::teleportation(Room dst) {
+	if (!dst)
 		cout << "there is no such room" << endl;
 	else {
 		currentRoom = dst;
