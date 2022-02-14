@@ -3,7 +3,7 @@
 using namespace std;
 #include "ZorkUL.h"
 
-int main(int argc, char argv[]) {
+int main (int argc, char* argv[]) {
 	ZorkUL temp;
 	temp.play();
 	return 0;
@@ -33,16 +33,29 @@ void ZorkUL::createRooms()  {
 	//New room: j
 	j = new Room("j");
 
+    //Room list for tel
+    roomList = {{"a", a},
+                {"b", b},
+                {"c", c},
+                {"d", d},
+                {"e", e},
+                {"f", f},
+                {"g", g},
+                {"h", h},
+                {"i", i},
+                {"j", j}};
+
+
 //             (N, E, S, W)
 	a->setExits(f, b, d, c);
-	b->setExits(NULL, NULL, NULL, a);
+    b->setExits(NULL, NULL, NULL, a);
 	c->setExits(NULL, a, NULL, NULL);
 	d->setExits(a, e, NULL, i);
 	e->setExits(NULL, NULL, NULL, d);
 	f->setExits(NULL, g, a, h);
 	g->setExits(NULL, NULL, NULL, f);
 	h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, NULL, NULL);
+    i->setExits(NULL, d, j, NULL);
 
     //New room : j
     j->setExits(i, NULL, NULL, NULL);
@@ -92,7 +105,10 @@ bool ZorkUL::processCommand(Command command) {
 	}
 
 	string commandWord = command.getCommandWord();
-	if (commandWord.compare("info") == 0)
+    if (commandWord.compare("tele") == 0)
+        tele(command);
+
+    else if (commandWord.compare("info") == 0)
 		printHelp();
 
 	else if (commandWord.compare("map") == 0)
@@ -198,12 +214,22 @@ string ZorkUL::go(string direction) {
 	}
 }
 
-//Teleportation function
-void ZorkUL::teleportation(Room dst) {
-	if (!dst)
-		cout << "there is no such room" << endl;
-	else {
-		currentRoom = dst;
-		return currentRoom->longDescription();
-	}
+//Tel fun
+void ZorkUL::tele(Command command) {
+    if (!command.hasSecondWord()) {
+        cout << "incomplete input"<< endl;
+        return;
+    }
+    else
+    {
+        string dst = command.getSecondWord();
+        if (!roomList[dst]) {
+            cout << "no such room"<< endl;
+            return;
+        }
+
+        currentRoom = roomList[dst];
+        cout << currentRoom->longDescription() << endl;
+        return;
+    }
 }
