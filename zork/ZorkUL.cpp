@@ -214,22 +214,27 @@ string ZorkUL::go(string direction) {
 	}
 }
 
-//Tel fun
+//Teleportatio function
+
 void ZorkUL::tele(Command command) {
     if (!command.hasSecondWord()) {
-        cout << "incomplete input"<< endl;
-        return;
-    }
-    else
-    {
-        string dst = command.getSecondWord();
-        if (!roomList[dst]) {
-            cout << "no such room"<< endl;
-            return;
-        }
+        string strRoomList[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
+        string ranDst = strRoomList[rand()%10];
 
-        currentRoom = roomList[dst];
+        cout << "teleported to a random room: room  "<< ranDst << endl;
+        currentRoom = roomList[ranDst];
         cout << currentRoom->longDescription() << endl;
         return;
     }
+
+    string dst = command.getSecondWord();
+    if (!roomList[dst]) {
+        cout << "there's no such room"<< endl;
+        return;
+    }
+
+    cout << "teleported to room " << dst << endl;
+    currentRoom = roomList[dst];
+    cout << currentRoom->longDescription() << endl;
+    return;
 }
