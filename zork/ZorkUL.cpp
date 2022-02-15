@@ -107,6 +107,8 @@ bool ZorkUL::processCommand(Command command) {
 	string commandWord = command.getCommandWord();
     if (commandWord.compare("tele") == 0)
         tele(command);
+    else if (commandWord.compare("wordle"))
+        wordle();
 
     else if (commandWord.compare("info") == 0)
 		printHelp();
@@ -238,3 +240,42 @@ void ZorkUL::tele(Command command) {
     cout << currentRoom->longDescription() << endl;
     return;
 }
+
+//Worlde like game test function
+
+void ZorkUL::wordle() {
+    string wordList[5] = {"pearl", "sewed", "moist", "croze", "crane"};
+    string ranWord = wordList[rand()%5];
+    string L1 = "_", L2 = "_", L3 = "_", L4 = "_", L5 = "_";
+    int solved = 0;
+
+    while (!solved) {
+        cout << "state :" << L1<<L2<<L3<<L4<<L5 << endl;
+    }
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

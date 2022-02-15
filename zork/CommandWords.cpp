@@ -14,8 +14,9 @@ CommandWords::CommandWords() {
 		validCommands.push_back("map");
 		validCommands.push_back("take");
 		validCommands.push_back("put");
+        //Custom functions
         validCommands.push_back("tele");
-
+        validCommands.push_back("wordle");
     }
 }
 

@@ -29,6 +29,7 @@ public:
 	string go(string direction);
     //Teleportation function
     void tele(Command command);
+    void wordle();
 };
 
 #endif /*ZORKUL_H_*/
