@@ -107,7 +107,7 @@ bool ZorkUL::processCommand(Command command) {
 	string commandWord = command.getCommandWord();
     if (commandWord.compare("tele") == 0)
         tele(command);
-    else if (commandWord.compare("wordle"))
+    else if (commandWord.compare("wordle") == 0)
         wordle();
 
     else if (commandWord.compare("info") == 0)
@@ -146,9 +146,9 @@ bool ZorkUL::processCommand(Command command) {
             cout << "item is not in room" << endl;
         else
             cout << "item is in room" << endl;
-            cout << "index number " << + location << endl;
-            cout << endl;
-            cout << currentRoom->longDescription() << endl;
+        cout << "index number " << + location << endl;
+        cout << endl;
+        cout << currentRoom->longDescription() << endl;
         }
     }
 
@@ -244,38 +244,51 @@ void ZorkUL::tele(Command command) {
 //Worlde like game test function
 
 void ZorkUL::wordle() {
-    string wordList[5] = {"pearl", "sewed", "moist", "croze", "crane"};
-    string ranWord = wordList[rand()%5];
-    string L1 = "_", L2 = "_", L3 = "_", L4 = "_", L5 = "_";
-    int solved = 0;
+    string wordList[15] = {"pearl", "sewed", "moist", "croze","crane",
+                          "bread", "short", "blunt", "flock", "greek",
+                          "candy", "worry", "towel", "short", "stock"
+                         };
+    string display = "_____";
+    string ranWord = wordList[rand() % 15];
+    int solved = 0, remAttempts = 6;
+    string guess;
 
-    while (!solved) {
-        cout << "state :" << L1<<L2<<L3<<L4<<L5 << endl;
+    //cout << "[debug] ranWord is: "<< ranWord << endl;
+    while (remAttempts > 0 && solved < 5) {
+        cout << display << endl << "Remaining attempts: " <<  remAttempts << endl << "Your guess is: ";
+        cin >> guess;
+
+        if (guess.length() < 6) {
+            solved = 0;
+            int i = 0;
+            while (i < 5 && solved < 5) {
+                string correctLetters = "";
+
+                if (ranWord.find(guess[i]) != string::npos) {       //'string::npos' represents a non-position
+                    correctLetters += guess[i];
+
+                    if (guess[i] == ranWord[i]) {
+                        display[i] = guess[i];
+                        solved++;
+                    }
+                    else {
+                        cout << "The letter " << correctLetters << " is correct, but in the wrong spot" << endl;
+                    }
+                }
+
+                i++;
+            }
+            remAttempts--;
+        }
+        else {
+            cout << "Your guess must be a word of 5 letters" << endl;
+        }
     }
-    return;
+
+    if (solved == 5) {
+        cout << "You found the correct word!" << endl;
+    }
+    else {
+        cout << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
