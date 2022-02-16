@@ -248,35 +248,59 @@ void ZorkUL::wordle() {
                           "bread", "short", "blunt", "flock", "greek",
                           "candy", "worry", "towel", "short", "stock"
                          };
+
     string display = "_____";
+    string remLetters = " a b c d e f g h i j k l m n o p q r s t u v w x y z";
     string ranWord = wordList[rand() % 15];
     int solved = 0, remAttempts = 6;
     string guess;
 
     //cout << "[debug] ranWord is: "<< ranWord << endl;
+    cout << "Your guess must contain ONLY lowercase letters" << endl;
+
     while (remAttempts > 0 && solved < 5) {
-        cout << display << endl << "Remaining attempts: " <<  remAttempts << endl << "Your guess is: ";
+        cout << endl << "Remaining attempts: " <<  remAttempts << endl << remLetters << endl << display << endl << "Your guess: ";
         cin >> guess;
+        string incorrectLetters = "";
 
         if (guess.length() < 6) {
             solved = 0;
             int i = 0;
             while (i < 5 && solved < 5) {
-                string correctLetters = "";
+                string correctLetter = "";
 
-                if (ranWord.find(guess[i]) != string::npos) {       //'string::npos' represents a non-position
-                    correctLetters += guess[i];
+                if (ranWord.find(guess[i]) != string::npos) {             //'string::npos' represents a non-position
+                    correctLetter += guess[i];
 
                     if (guess[i] == ranWord[i]) {
-                        display[i] = guess[i];
+                        remLetters.at((guess[i] - 96) * 2 - 1) = '_';    //'-96' because 'a'=97, '*2' because letters are separated by a space
+
+                        unsigned long j = 0;
+                        while (j < guess.length()) {
+                            if (guess[i]==ranWord[j]) {
+                                display[j] = guess[i];
+                            }
+                            j++;
+                        }
                         solved++;
                     }
                     else {
-                        cout << "The letter " << correctLetters << " is correct, but in the wrong spot" << endl;
+                        cout << "The letter " << correctLetter << " is correct, but in the wrong spot" << endl;
+                    }
+                }
+                else {
+                    if ( (guess[i] >= 'a' && guess[i] <= 'z') || (guess[i] >= 'A' && guess[i] <= 'Z')) {
+                        incorrectLetters += ' ';
+                        incorrectLetters += guess[i];
+                        incorrectLetters += ' ';
+                        remLetters.at((guess[i] - 96) * 2 - 1) = '_';
                     }
                 }
 
                 i++;
+            }
+            if (incorrectLetters != "") {
+                cout << "Incorrect letters:" << incorrectLetters << " " << endl;
             }
             remAttempts--;
         }
@@ -286,9 +310,9 @@ void ZorkUL::wordle() {
     }
 
     if (solved == 5) {
-        cout << "You found the correct word!" << endl;
+        cout << endl << "You found the correct word!" << endl<<endl;
     }
     else {
-        cout << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl;
+        cout << endl << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl<<endl;
     }
 }

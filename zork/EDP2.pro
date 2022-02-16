@@ -20,3 +20,5 @@ HEADERS += \
     Room.h \
     ZorkUL.h \
     item.h
+
+DISTFILES +=
