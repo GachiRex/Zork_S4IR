@@ -3,20 +3,19 @@
 using namespace std;
 #include "ZorkUL.h"
 
-int main (int argc, char* argv[]) {
+/*int main (int argc, char* argv[]) {
 	ZorkUL temp;
 	temp.play();
 	return 0;
-}
+}*/
 
 ZorkUL::ZorkUL() {
 	createRooms();
 }
 
 void ZorkUL::createRooms()  {
-	Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
-
-	a = new Room("a");
+    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
+    a = new Room("a");
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
 	b = new Room("b");

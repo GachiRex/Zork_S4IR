@@ -10,7 +10,8 @@
 using namespace std;
 
 class ZorkUL {
-private:
+public:
+//private
 	Parser parser;
 	Room *currentRoom;
     map<string, Room*> roomList;
@@ -21,13 +22,11 @@ private:
 	void goRoom(Command command);
     void createItems();
     void displayItems();
-
-
-public:
+//public
 	ZorkUL();
 	void play();
 	string go(string direction);
-    //Teleportation function
+//Custom functions
     void tele(Command command);
     void wordle();
 };
