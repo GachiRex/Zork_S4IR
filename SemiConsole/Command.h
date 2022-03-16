@@ -5,11 +5,12 @@
 using namespace std;
 
 class Command {
-private:
+//private:
+public:
 	string commandWord;
 	string secondWord;
 
-public:
+//public:
 	Command(string firstWord, string secondWord);
 	string getCommandWord();
 	string getSecondWord();

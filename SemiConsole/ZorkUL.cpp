@@ -222,7 +222,7 @@ void ZorkUL::tele(Command command) {
         string strRoomList[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
         string ranDst = strRoomList[rand()%10];
 
-        cout << "teleported to a random room: room  "<< ranDst << endl;
+        cout << "[Teleportation] teleported to a random room: room  "<< ranDst << endl;
         currentRoom = roomList[ranDst];
         cout << currentRoom->longDescription() << endl;
         return;
