@@ -39,18 +39,52 @@ void MainWindow::on_lineEdit_returnPressed()
 
 //Button functions ===================================
 
+inline void MainWindow::Go(string dst) {
+    Room* nextRoom = game.currentRoom->nextRoom(dst);
+    if (nextRoom == NULL) {
+        cout << "[Impossible!] You cannot go " << dst << " anymore! Check the room's exits..." << endl;
+    }
+    else {
+        game.currentRoom = nextRoom;
+     }
+    cout << endl << game.currentRoom->longDescription() << endl;
+}
+
+//quit button
+void MainWindow::on_pushButton_2_clicked()
+{
+    qApp->closeAllWindows();
+}
+
+//Go East button
+void MainWindow::on_pushButton_clicked()
+{
+    Go("east");
+}
+
+//Go South button
+void MainWindow::on_pushButton_3_clicked()
+{
+    Go("south");
+}
+
+//Go West Button
+void MainWindow::on_pushButton_4_clicked()
+{
+    Go("west");
+}
+
+//Go North button
+void MainWindow::on_pushButton_5_clicked()
+{
+    Go("north");
+}
+
 //Help display button
 void MainWindow::on_pushButton_6_clicked()
 {
     game.printHelp();
 }
-
-//Wordle button
-void MainWindow::on_pushButton_8_clicked()
-{
-    game.wordle();
-}
-
 
 //Random Teleportation button
 void MainWindow::on_pushButton_7_clicked()
@@ -64,61 +98,16 @@ void MainWindow::on_pushButton_7_clicked()
     return;
 }
 
-//Go North button
-void MainWindow::on_pushButton_5_clicked()
+//Wordle button
+void MainWindow::on_pushButton_8_clicked()
 {
-    Room* nextRoom = game.currentRoom->nextRoom("north");
-    if (nextRoom == NULL) {
-        cout << "[Impossible] You cannot go North anymore! Check the room's exits..." << endl;
-    }
-    else {
-        game.currentRoom = nextRoom;
-     }
-    cout << endl << game.currentRoom->longDescription() << endl;
-}
-
-//Go West Button
-void MainWindow::on_pushButton_4_clicked()
-{
-    Room* nextRoom = game.currentRoom->nextRoom("west");
-    if (nextRoom == NULL) {
-        cout << "[Impossible] You cannot go West anymore! Check the room's exits..." << endl;
-    }
-    else {
-        game.currentRoom = nextRoom;
-     }
-    cout << endl << game.currentRoom->longDescription() << endl;
-}
-
-//Go East button
-void MainWindow::on_pushButton_clicked()
-{
-    Room* nextRoom = game.currentRoom->nextRoom("east");
-    if (nextRoom == NULL) {
-        cout << "[Impossible] You cannot go East anymore!Check the room's exits..." << endl;
-    }
-    else {
-        game.currentRoom = nextRoom;
-     }
-    cout << endl << game.currentRoom->longDescription() << endl;
-}
-
-//Go South button
-void MainWindow::on_pushButton_3_clicked()
-{
-    Room* nextRoom = game.currentRoom->nextRoom("south");
-    if (nextRoom == NULL) {
-        cout << "[Impossible] You cannot go South anymore! Check the room's exits..." << endl;
-    }
-    else {
-        game.currentRoom = nextRoom;
-     }
-    cout << endl << game.currentRoom->longDescription() << endl;
+    game.wordle();
 }
 
 //Map display button
 void MainWindow::on_pushButton_9_clicked()
 {
+    cout << endl;
     cout << "[h] --- [f] --- [g]" << endl;
     cout << "         |         " << endl;
     cout << "         |         " << endl;
@@ -129,5 +118,6 @@ void MainWindow::on_pushButton_9_clicked()
     cout << " |                 " << endl;
     cout << " |                 " << endl;
     cout << "[j]                " << endl;
+    cout << endl;
 }
 
