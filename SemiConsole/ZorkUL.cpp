@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 
 using namespace std;
 #include "ZorkUL.h"
@@ -12,6 +13,47 @@ using namespace std;
 ZorkUL::ZorkUL() {
 	createRooms();
 }
+
+class Entity {
+public:
+    string name;
+    string description;
+    int hp;
+    int mp;
+};
+
+class Player : public Entity {
+public:
+    list<Item> Inventory = list<Item>{5};
+};
+
+class Enemy : public Entity {
+private:
+    int spwnRate;   //depends on difficulty maybe?
+public:
+    void SetSpawnRate (float inSpwnRate);
+    list<Item> dropTable = list<Item>{3};
+};
+
+void Enemy::SetSpawnRate(float inSpwnRate) {
+    if (inSpwnRate < 0 || inSpwnRate > 1) {
+        cerr << "[ERROR]ZorkUL: An invalid spwnRate has been set" << endl;
+    }
+    else {
+        spwnRate = inSpwnRate;
+    }
+}
+
+void createBat() {
+    Enemy bat;
+    bat.name = "Bat no. 1";
+    bat.description = "A huge stinky bat.";
+    bat.hp = 5;
+    bat.mp = 0;
+    bat.SetSpawnRate(.5);
+}
+
+//============================================================================
 
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
@@ -97,6 +139,9 @@ void ZorkUL::printWelcome() {
  * If this command ends the ZorkUL game, true is returned, otherwise false is
  * returned.
  */
+
+/*
+ *
 bool ZorkUL::processCommand(Command command) {
 	if (command.isUnknown()) {
 		cout << "invalid input"<< endl;
@@ -155,7 +200,7 @@ bool ZorkUL::processCommand(Command command) {
     {
 
     }
-    /*
+
     {
     if (!command.hasSecondWord()) {
 		cout << "incomplete input"<< endl;
@@ -166,15 +211,16 @@ bool ZorkUL::processCommand(Command command) {
             itemsInRoom.push_Back;
         }
     }
-*/
+
     else if (commandWord.compare("quit") == 0) {
 		if (command.hasSecondWord())
 			cout << "overdefined input"<< endl;
 		else
-			return true; /**signal to quit*/
+            return true;
 	}
 	return false;
-}
+}*/
+
 /** COMMANDS **/
 void ZorkUL::printHelp() {
 	cout << "valid inputs are; " << endl;
@@ -182,7 +228,7 @@ void ZorkUL::printHelp() {
 
 }
 
-void ZorkUL::goRoom(Command command) {
+/*void ZorkUL::goRoom(Command command) {
 	if (!command.hasSecondWord()) {
 		cout << "incomplete input"<< endl;
 		return;
@@ -199,9 +245,9 @@ void ZorkUL::goRoom(Command command) {
 		currentRoom = nextRoom;
 		cout << currentRoom->longDescription() << endl;
 	}
-}
+}*/
 
-string ZorkUL::go(string direction) {
+/*string ZorkUL::go(string direction) {
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
@@ -213,11 +259,11 @@ string ZorkUL::go(string direction) {
 		currentRoom = nextRoom;
 		return currentRoom->longDescription();
 	}
-}
+}*/
 
-//Teleportatio function
+//Teleportation function
 
-void ZorkUL::tele(Command command) {
+/*void ZorkUL::tele(Command command) {
     if (!command.hasSecondWord()) {
         string strRoomList[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
         string ranDst = strRoomList[rand()%10];
@@ -238,7 +284,7 @@ void ZorkUL::tele(Command command) {
     currentRoom = roomList[dst];
     cout << currentRoom->longDescription() << endl;
     return;
-}
+}*/
 
 //Worlde like game test function
 
