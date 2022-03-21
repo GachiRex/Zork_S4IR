@@ -25,7 +25,19 @@ public:
 class Player : public Entity {
 public:
     list<Item> Inventory = list<Item>{5};
+private:
+    void invAddItems(Item item);
 };
+
+//Test inventory funct
+void Player::invAddItems(Item item) {
+    if (Inventory.length() == 5) {
+        cout << "Inventory is full" << endl;
+    }
+    else {
+        Inventory.push_back(item);
+    }
+}
 
 class Enemy : public Entity {
 private:
@@ -44,6 +56,7 @@ void Enemy::SetSpawnRate(float inSpwnRate) {
     }
 }
 
+//test
 void createBat() {
     Enemy bat;
     bat.name = "Bat no. 1";
