@@ -70,8 +70,28 @@ void Enemy::SetSpawnRate(float inSpwnRate) {
     }
 }
 
-//test
-void createBat() {
+//create player test
+void classTest_createPlayer() {
+    Player player;
+    player.name = "p1";
+    player.description = "It's the player!";
+    player.hp = 20;
+    player.mp = 10;
+    player.money = 15;
+
+    Item item;
+    item.name = "Placeholder";
+    item.description = "An item";
+    //item objs needs their value to be settable
+
+    player.invAddItem(item, 1);
+    cout << player.Inventory << endl;
+    player.invAddItem(item, 0);
+    cout << player.Inventory << endl;
+}
+
+//create enemy test
+void classTest_createBat() {
     Enemy bat;
     bat.name = "Bat no. 1";
     bat.description = "A huge stinky bat.";
