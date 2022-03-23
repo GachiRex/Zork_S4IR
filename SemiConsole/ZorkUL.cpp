@@ -32,14 +32,21 @@ public:
     void invAddItem(Item item, bool flag) {
         if (flag) {
             if (Inventory.size() == 5) {
-            cout << "[Player] Inventory is full!" << endl;
+            cout << "[Inventory] Inventory is full!" << endl;
             }
             else {
             Inventory.push_back(item);
             }
         }
+        // NEEDS TESTING ===================
         else {
-            if (find(Inventory.begin(), Inventory.end(), item))
+            int i = 0 ;
+            while (Inventory[i++] != item);
+            (item == 5) ?
+            cout << "[Inventory] You do not have this item" << endl
+            : { cout << "[Inventory] " << item.name << " has been removed from your inventory" << endl;
+            Inventory.remove(item); }
+        //==================================
         }
     }
 
