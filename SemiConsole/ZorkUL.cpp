@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <algorithm> //for find
 
 using namespace std;
 #include "ZorkUL.h"
@@ -23,21 +24,27 @@ public:
 };
 
 class Player : public Entity {
-public:
-    list<Item> Inventory = list<Item>{5};
 private:
-    void invAddItems(Item item);
-};
+    list<Item> Inventory = list<Item>{5};
+    float money;
+public:
+    //Flag: if 1, addItem to player, if 0, deletes it from player
+    void invAddItem(Item item, bool flag) {
+        if (flag) {
+            if (Inventory.size() == 5) {
+            cout << "[Player] Inventory is full!" << endl;
+            }
+            else {
+            Inventory.push_back(item);
+            }
+        }
+        else {
+            if (find(Inventory.begin(), Inventory.end(), item))
+        }
+    }
 
-//Test inventory funct
-void Player::invAddItems(Item item) {
-    if (Inventory.length() == 5) {
-        cout << "Inventory is full" << endl;
-    }
-    else {
-        Inventory.push_back(item);
-    }
-}
+    void buyItem(Item item) { money -= item.getValue() ; invAddItem(item, 1); }
+}; 
 
 class Enemy : public Entity {
 private:
@@ -49,7 +56,7 @@ public:
 
 void Enemy::SetSpawnRate(float inSpwnRate) {
     if (inSpwnRate < 0 || inSpwnRate > 1) {
-        cerr << "[ERROR]ZorkUL: An invalid spwnRate has been set" << endl;
+        spwnRate = 0;
     }
     else {
         spwnRate = inSpwnRate;
