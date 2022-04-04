@@ -53,6 +53,15 @@ public:
     void buyItem(Item item) { money -= item.getValue() ; invAddItem(item, 1); }
 }; 
 
+class NPC : public Entity {
+private:
+    list<string> dialogList = list<string>{10}; //max nb of dialog
+public:
+    void coutDialog(int dialogNb) {
+        cout << NPC.name << ": " << dialogList[dialogNb] << endl;
+    }
+}
+
 class Enemy : public Entity {
 private:
     int spwnRate;   //depends on difficulty maybe?
@@ -105,11 +114,12 @@ void classTest_createBat() {
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     a = new Room("a");
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
+        //isLocked? default=0?
+        a->addItem(new Item("x", 1, 11, 0));
+        a->addItem(new Item("y", 2, 22, 0));
 	b = new Room("b");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
+        b->addItem(new Item("xx", 3, 33, 0));
+        b->addItem(new Item("yy", 4, 44, 0));
 	c = new Room("c");
 	d = new Room("d");
 	e = new Room("e");
@@ -118,8 +128,11 @@ void ZorkUL::createRooms()  {
 	h = new Room("h");
 	i = new Room("i");
 
-	//New room: j
+	//New rooms
 	j = new Room("j");
+    k = new Room("k");
+    l = new Room("l");
+    m = new Room("m");
 
     //Room list for tel
     roomList = {{"a", a},
@@ -131,7 +144,10 @@ void ZorkUL::createRooms()  {
                 {"g", g},
                 {"h", h},
                 {"i", i},
-                {"j", j}};
+                {"j", j},
+                {"k", k},
+                {"l", l},
+                {"m", m}};
 
 
 //             (N, E, S, W)
@@ -140,15 +156,18 @@ void ZorkUL::createRooms()  {
 	c->setExits(NULL, a, NULL, NULL);
 	d->setExits(a, e, NULL, i);
 	e->setExits(NULL, NULL, NULL, d);
-	f->setExits(NULL, g, a, h);
+	f->setExits(m, g, a, h);
 	g->setExits(NULL, NULL, NULL, f);
 	h->setExits(NULL, f, NULL, NULL);
     i->setExits(NULL, d, j, NULL);
 
-    //New room : j
+    //New rooms
     j->setExits(i, NULL, NULL, NULL);
+    k->setExits(NULL, l, NULL, j);
+    l->setExits(e, NULL, NULL, k);
+    m->setExits(NULL, NULL, f, NULL);
 
-        currentRoom = a;
+    currentRoom = a;
 }
 
 /**
@@ -206,6 +225,8 @@ bool ZorkUL::processCommand(Command command) {
 
 	else if (commandWord.compare("map") == 0)
 		{
+        cout << "        [l]        " << endl;
+        cout <<           |         " << endl;
         cout << "[h] --- [f] --- [g]" << endl;
 		cout << "         |         " << endl;
         cout << "         |         " << endl;
@@ -215,9 +236,9 @@ bool ZorkUL::processCommand(Command command) {
 		cout << "[i] --- [d] --- [e]" << endl;
 
 		//New room j: map location
-		cout << " |                 " << endl;
-		cout << " |                 " << endl;
-		cout << "[j]                " << endl;
+		cout << " |               |" << endl;
+		cout << " |               |" << endl;
+		cout << "[j] --- [k] --- [m]" << endl;
 
 		}
 

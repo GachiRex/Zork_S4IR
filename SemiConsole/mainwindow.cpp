@@ -107,17 +107,17 @@ void MainWindow::on_pushButton_8_clicked()
 //Map display button
 void MainWindow::on_pushButton_9_clicked()
 {
-    cout << endl;
-    cout << "[h] --- [f] --- [g]" << endl;
-    cout << "         |         " << endl;
-    cout << "         |         " << endl;
-    cout << "[c] --- [a] --- [b]" << endl;
-    cout << "         |         " << endl;
-    cout << "         |         " << endl;
-    cout << "[i] --- [d] --- [e]" << endl;
-    cout << " |                 " << endl;
-    cout << " |                 " << endl;
-    cout << "[j]                " << endl;
-    cout << endl;
+        cout << "        [m]        " << endl;
+        cout << "         |         " << endl;
+        cout << "[h] --- [f] --- [g]" << endl;
+        cout << "         |         " << endl;
+        cout << "         |         " << endl;
+        cout << "[c] --- [a] --- [b]" << endl;
+        cout << "         |         " << endl;
+        cout << "         |         " << endl;
+        cout << "[i] --- [d] --- [e]" << endl;
+        cout << " |               |" << endl;
+        cout << " |               |" << endl;
+        cout << "[j] --- [k] --- [l]" << endl;
 }
 

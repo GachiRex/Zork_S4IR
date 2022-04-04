@@ -1,6 +1,6 @@
 #include "item.h"
 
-Item::Item (string inDescription, int inWeightGrams, float inValue/**, int weaponCheck*/) {
+Item::Item (string inDescription, int inWeightGrams, float inValue, bool weaponCheck) {
 	description = inDescription;
 	setWeight(inWeightGrams);
 	value = inValue;
@@ -26,14 +26,6 @@ void Item::setValue(float inValue)
     else
 	   value = inValue;
 }
-
-/**void Item::setWeaponCheck(int isWeapon)
-{
-    if(isWeapon > 0 || isWeapon < 0)
-        cout << "Item not a weapon" ;
-    else
-        cout << "Item is a weapon" ;
-}*/
 
 string Item::getShortDescription()
 {
