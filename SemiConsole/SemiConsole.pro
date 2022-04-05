@@ -22,6 +22,7 @@ SOURCES += \
     Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
+    entity.cpp \
     item.cpp \
     main.cpp \
     mainwindow.cpp
@@ -33,6 +34,7 @@ HEADERS += \
     Parser.h \
     Room.h \
     ZorkUL.h \
+    entity.h \
     item.h \
     mainwindow.h
 

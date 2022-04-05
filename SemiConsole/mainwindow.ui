@@ -170,7 +170,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>random tel</string>
+     <string>Random Tel.</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
@@ -189,14 +189,40 @@
    <widget class="QPushButton" name="pushButton_9">
     <property name="geometry">
      <rect>
-      <x>1090</x>
+      <x>1110</x>
       <y>130</y>
-      <width>121</width>
-      <height>51</height>
+      <width>81</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Map</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_10">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>200</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check stats</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_11">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>250</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check Inventory</string>
     </property>
    </widget>
   </widget>

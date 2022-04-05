@@ -12,114 +12,18 @@ using namespace std;
 }*/
 
 ZorkUL::ZorkUL() {
-	createRooms();
+    createRooms();
 }
-
-class Entity {
-public:
-    string name;
-    string description;
-    int hp;
-    int mp;
-};
-
-class Player : public Entity {
-private:
-    list<Item> Inventory = list<Item>{5};
-    float money;
-public:
-    //Flag: if 1, addItem to player, if 0, deletes it from player
-    void invAddItem(Item item, bool flag) {
-        if (flag) {
-            if (Inventory.size() == 5) {
-            cout << "[Inventory] Inventory is full!" << endl;
-            }
-            else {
-            Inventory.push_back(item);
-            }
-        }
-        // NEEDS TESTING ===================
-        else {
-            int i = 0 ;
-            while (Inventory[i++] != item);
-            (item == 5) ?
-            cout << "[Inventory] You do not have this item" << endl
-            : { cout << "[Inventory] " << item.name << " has been removed from your inventory" << endl;
-            Inventory.remove(item); }
-        //==================================
-        }
-    }
-
-    void buyItem(Item item) { money -= item.getValue() ; invAddItem(item, 1); }
-}; 
-
-class NPC : public Entity {
-private:
-    list<string> dialogList = list<string>{10}; //max nb of dialog
-public:
-    void coutDialog(int dialogNb) {
-        cout << NPC.name << ": " << dialogList[dialogNb] << endl;
-    }
-}
-
-class Enemy : public Entity {
-private:
-    int spwnRate;   //depends on difficulty maybe?
-public:
-    void SetSpawnRate (float inSpwnRate);
-    list<Item> dropTable = list<Item>{3};
-};
-
-void Enemy::SetSpawnRate(float inSpwnRate) {
-    if (inSpwnRate < 0 || inSpwnRate > 1) {
-        spwnRate = 0;
-    }
-    else {
-        spwnRate = inSpwnRate;
-    }
-}
-
-//create player test
-void classTest_createPlayer() {
-    Player player;
-    player.name = "p1";
-    player.description = "It's the player!";
-    player.hp = 20;
-    player.mp = 10;
-    player.money = 15;
-
-    Item item;
-    item.name = "Placeholder";
-    item.description = "An item";
-    //item objs needs their value to be settable
-
-    player.invAddItem(item, 1);
-    cout << player.Inventory << endl;
-    player.invAddItem(item, 0);
-    cout << player.Inventory << endl;
-}
-
-//create enemy test
-void classTest_createBat() {
-    Enemy bat;
-    bat.name = "Bat no. 1";
-    bat.description = "A huge stinky bat.";
-    bat.hp = 5;
-    bat.mp = 0;
-    bat.SetSpawnRate(.5);
-}
-
-//============================================================================
 
 void ZorkUL::createRooms()  {
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
+    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m;
     a = new Room("a");
         //isLocked? default=0?
-        a->addItem(new Item("x", 1, 11, 0));
-        a->addItem(new Item("y", 2, 22, 0));
+        a->addItem(new Item("x", 1, 11));
+        a->addItem(new Item("y", 2, 22));
 	b = new Room("b");
-        b->addItem(new Item("xx", 3, 33, 0));
-        b->addItem(new Item("yy", 4, 44, 0));
+        b->addItem(new Item("xx", 3, 33));
+        b->addItem(new Item("yy", 4, 44));
 	c = new Room("c");
 	d = new Room("d");
 	e = new Room("e");
@@ -162,7 +66,7 @@ void ZorkUL::createRooms()  {
     i->setExits(NULL, d, j, NULL);
 
     //New rooms
-    j->setExits(i, NULL, NULL, NULL);
+    j->setExits(i, k, NULL, NULL);
     k->setExits(NULL, l, NULL, j);
     l->setExits(e, NULL, NULL, k);
     m->setExits(NULL, NULL, f, NULL);
@@ -173,7 +77,7 @@ void ZorkUL::createRooms()  {
 /**
  *  Main play routine.  Loops until end of play.
  */
-void ZorkUL::play() {
+/*void ZorkUL::play() {
 	printWelcome();
 
 	// Enter the main command loop.  Here we repeatedly read commands and
@@ -191,7 +95,7 @@ void ZorkUL::play() {
 	}
 	cout << endl;
 	cout << "end" << endl;
-}
+}*/
 
 void ZorkUL::printWelcome() {
 	cout << "start"<< endl;
@@ -328,8 +232,6 @@ void ZorkUL::printHelp() {
 		return currentRoom->longDescription();
 	}
 }*/
-
-//Teleportation function
 
 /*void ZorkUL::tele(Command command) {
     if (!command.hasSecondWord()) {

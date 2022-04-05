@@ -8,6 +8,7 @@ using namespace std;
 
 class Item {
 private:
+    string name;
 	string description;
 	string longDescription;
 	int weightGrams;
@@ -15,16 +16,19 @@ private:
 	bool weaponCheck;
 
 public:
+    Item ();
     Item (string description, int inWeight, float inValue);
     Item (string description);
+    string getName();
+    void setName(string inName);
 	string getShortDescription();
     string getLongDescription();
 	int getWeight();
 	void setWeight(int weightGrams);
 	float getValue();
 	void setValue(float value);
-	int getWeaponCheck();
-	void setWeaponCheck(int weaponCheck);
+    bool getWeaponCheck();
+    void setWeaponCheck(bool weaponCheck);
 };
 
 #endif /*ITEM_H_*/

@@ -9,6 +9,7 @@ using namespace std;
 #include "ZorkUL.h"
 
 ZorkUL game;
+Player player = createPlayer("p1");
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,9 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
     redirect = new QDebugStream(cout, ui ->textEdit);
-    ZorkUL game;
     game.printWelcome();
-
 }
 
 MainWindow::~MainWindow()
@@ -89,18 +88,16 @@ void MainWindow::on_pushButton_6_clicked()
 //Random Teleportation button
 void MainWindow::on_pushButton_7_clicked()
 {
-    string strRoomList[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
-    string ranDst = strRoomList[rand()%10];
+    string strRoomList[13] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"};
+    string ranDst = strRoomList[rand()%13];
 
     cout << endl << "[Teleportation] teleported to a random room: room  "<< ranDst << endl;
     game.currentRoom = game.roomList[ranDst];
     cout << game.currentRoom->longDescription() << endl;
-    return;
 }
 
 //Wordle button
-void MainWindow::on_pushButton_8_clicked()
-{
+void MainWindow::on_pushButton_8_clicked() {
     game.wordle();
 }
 
@@ -119,5 +116,17 @@ void MainWindow::on_pushButton_9_clicked()
         cout << " |               |" << endl;
         cout << " |               |" << endl;
         cout << "[j] --- [k] --- [l]" << endl;
+}
+
+//Check Player's Stats button
+void MainWindow::on_pushButton_10_clicked(){
+    player.CheckStats();
+}
+
+
+//Check Player's Inventory button
+void MainWindow::on_pushButton_11_clicked()
+{
+    player.checkInventory();
 }
 

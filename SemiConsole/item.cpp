@@ -1,14 +1,23 @@
 #include "item.h"
 
-Item::Item (string inDescription, int inWeightGrams, float inValue, bool weaponCheck) {
+Item::Item() {}
+
+Item::Item (string inDescription, int inWeightGrams, float inValue) {
 	description = inDescription;
 	setWeight(inWeightGrams);
-	value = inValue;
-	/**weaponCheck(isWeapon);*/
+    value = inValue;
 }
 
 Item::Item(string inDescription) {
 	description = inDescription;
+}
+
+string Item::getName() {
+    return name;
+}
+
+void Item::setName(string inName) {
+    name = inName;
 }
 
 void Item::setWeight(int inWeightGrams)
@@ -27,6 +36,10 @@ void Item::setValue(float inValue)
 	   value = inValue;
 }
 
+void Item::setWeaponCheck(bool inWeaponCheck) {
+    weaponCheck = inWeaponCheck;
+}
+
 string Item::getShortDescription()
 {
 	return description;
@@ -36,4 +49,13 @@ string Item::getLongDescription()
 {
 	return " item(s), " + description + ".\n";
 }
+
+float Item::getValue() {
+    return value;
+}
+
+bool Item::getWeaponCheck() {
+    return weaponCheck;
+}
+
 
