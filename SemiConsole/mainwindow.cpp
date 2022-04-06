@@ -128,7 +128,7 @@ void MainWindow::on_pushButton_9_clicked()
 void MainWindow::on_pushButton_10_clicked(){
     player.CheckStats();
 }
-
+//p
 
 //Check Player's Inventory button
 void MainWindow::on_pushButton_11_clicked()
