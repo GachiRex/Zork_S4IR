@@ -22,7 +22,7 @@ void ZorkUL::createRooms()  {
         //isLocked? default=0?
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
-        a->addNPC(createNPC_C(),a);
+        a->addNPC(createNPC_Cindy(),a);
 	b = new Room("b");
         b->addItem(new Item("xx", 3, 33));
         b->addItem(new Item("yy", 4, 44));
@@ -70,6 +70,10 @@ void ZorkUL::createRooms()  {
     k->setExits(NULL, l, NULL, j);
     l->setExits(e, NULL, NULL, k);
     m->setExits(NULL, NULL, f, NULL);
+
+//Rooms with locked northern exits
+    a->northLock(f);
+    f->northLock(m);
 
     currentRoom = a;
 }

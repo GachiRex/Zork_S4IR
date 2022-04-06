@@ -3,10 +3,15 @@
 
 //Functions to create specific NPCs and set their dialogs
 
-//NPC "C" test
-NPC createNPC_C() {
-    NPC C = createNPC("C", "Welcoming NPC");
-    C.addDialog("Hello, world!");
+//NPC "Cindy" test
+NPC createNPC_Cindy() {
+    NPC Cindy = createNPC("Cindy", "Welcoming NPC");
+    Cindy.addDialog("Hello, world!");
 
-    return C;
+    return Cindy;
 }
+
+/*NPC "Lionel"
+NPC createNPC_Lionel() {
+
+}*/

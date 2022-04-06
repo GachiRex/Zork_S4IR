@@ -2,8 +2,9 @@
 #include "Command.h"
 
 
-Room::Room(string description) {
+Room::Room(string description, bool isNorthLocked) {
 	this->description = description;
+    this->isNorthLocked = isNorthLocked;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -15,6 +16,21 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["south"] = south;
 	if (west != NULL)
 		exits["west"] = west;
+}
+
+bool Room::get_isNorthLocked() {
+    return isNorthLocked;
+}
+
+void Room::set_isNorthLocked(bool flag){
+    isNorthLocked = flag;
+}
+
+//Locks or unlocks northern exit of a room
+void Room::northLock(Room *north) {
+    bool flag = (get_isNorthLocked());
+    exits["north"] = (flag) ? north : NULL;
+    set_isNorthLocked(flag);
 }
 
 string Room::shortDescription() {

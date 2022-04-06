@@ -17,11 +17,15 @@ private:
 	string exitString();
     vector <Item> itemsInRoom;
     NPC NPCinRoom; //single NPC per room
+    bool isNorthLocked;
 
 public:
     int numberOfItems();
-	Room(string description);
+    Room(string description, bool isNorthLocked = 0);
 	void setExits(Room *north, Room *east, Room *south, Room *west);
+    void northLock(Room *north); //lock north exit
+    bool get_isNorthLocked();
+    void set_isNorthLocked(bool flag);
 	string shortDescription();
 	string longDescription();
 	Room* nextRoom(string direction);
@@ -29,7 +33,6 @@ public:
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
-    bool isLocked;
     void addNPC(NPC inNPC, Room *room);
     NPC getNPC();
 };
