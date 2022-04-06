@@ -111,3 +111,11 @@ void Room::addNPC(NPC inNPC, Room *room) {
 NPC Room::getNPC() {
     return NPCinRoom;
 }
+
+void Room::setNPCpresence(bool flag) {
+    isNPCpresent = flag;
+}
+
+bool Room::getNPCpresence() {
+    return isNPCpresent;
+}

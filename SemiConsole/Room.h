@@ -18,6 +18,7 @@ private:
     vector <Item> itemsInRoom;
     NPC NPCinRoom; //single NPC per room
     bool isNorthLocked;
+    bool isNPCpresent;
 
 public:
     int numberOfItems();
@@ -34,6 +35,8 @@ public:
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
     void addNPC(NPC inNPC, Room *room);
+    void setNPCpresence(bool flag);
+    bool getNPCpresence();
     NPC getNPC();
 };
 

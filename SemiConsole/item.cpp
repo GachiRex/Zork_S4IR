@@ -12,13 +12,16 @@ Item::Item(string inDescription) {
 	description = inDescription;
 }
 
-string Item::getName() {
-    return name;
-}
+//setters&getters
 
 void Item::setName(string inName) {
     name = inName;
 }
+
+string Item::getName() {
+    return name;
+}
+
 
 void Item::setWeight(int inWeightGrams)
 {
@@ -36,8 +39,24 @@ void Item::setValue(float inValue)
 	   value = inValue;
 }
 
+float Item::getValue() {
+    return value;
+}
+
+void Item::setKeyCheck(bool inKeyCheck) {
+    keyCheck = inKeyCheck;
+}
+
+bool Item::getKeyCheck() {
+    return keyCheck;
+}
+
 void Item::setWeaponCheck(bool inWeaponCheck) {
     weaponCheck = inWeaponCheck;
+}
+
+bool Item::getWeaponCheck() {
+    return weaponCheck;
 }
 
 string Item::getShortDescription()
@@ -50,12 +69,5 @@ string Item::getLongDescription()
 	return " item(s), " + description + ".\n";
 }
 
-float Item::getValue() {
-    return value;
-}
-
-bool Item::getWeaponCheck() {
-    return weaponCheck;
-}
 
 

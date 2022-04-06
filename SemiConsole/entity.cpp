@@ -25,6 +25,7 @@ void Player::checkInventory() {
                  << "Item description: " << Inventory[i].getShortDescription() << endl
                  << "Item value: " << Inventory[i].getValue() << endl
                  << "Weapon? " << ((Inventory[i].getWeaponCheck()) ? "Yes" : "No") << endl
+                 << "Key? " << ((Inventory[i].getKeyCheck()) ? "Yes" : "No") << endl
                  << endl;
     }
 }
@@ -49,11 +50,12 @@ Player createPlayer(string name, string description, int hp, int mp, int money) 
     player.setMP(mp);
     player.setMoney(money);
 
-    //CHANGE THIS ---------------test
+    //DELETE THIS ---------------Inventory test
     Item item;
-    item.setName("Garbage");
-    item.setValue(1);
+    item.setName("Gros Caillou");
+    item.setValue(0);
     item.setWeaponCheck(0);
+    item.setKeyCheck(1);
     player.invAddItem(item);
     //
 

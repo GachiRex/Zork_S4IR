@@ -14,6 +14,7 @@ private:
 	int weightGrams;
 	float value;
 	bool weaponCheck;
+    bool keyCheck;
 
 public:
     Item ();
@@ -29,6 +30,8 @@ public:
 	void setValue(float value);
     bool getWeaponCheck();
     void setWeaponCheck(bool weaponCheck);
+    bool getKeyCheck();
+    void setKeyCheck(bool keyCheck);
 };
 
 #endif /*ITEM_H_*/

@@ -5,8 +5,8 @@
 
 //NPC "Cindy" test
 NPC createNPC_Cindy() {
-    NPC Cindy = createNPC("Cindy", "Welcoming NPC");
-    Cindy.addDialog("Hello, world!");
+    NPC Cindy = createNPC("Cindy", "Mrs Broger");
+    Cindy.addDialog("Lionel m'a engrossé à l'aide!!!!\n");
 
     return Cindy;
 }

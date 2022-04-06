@@ -40,7 +40,11 @@ private:
 public:
     void addDialog(string dialog);
     void coutDialog(int dialogNb) {
-        cout << this->GetName() << ": " << dialogList[dialogNb] << endl;
+        cout << endl
+             << "[Dialog] "
+             << this->GetName() << ": "
+             << dialogList[dialogNb] << endl
+             << endl;
     }
 };
 

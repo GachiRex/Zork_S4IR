@@ -133,7 +133,13 @@ void MainWindow::on_pushButton_11_clicked()
 
 void MainWindow::on_pushButton_12_clicked()
 {
-    //CHECK IF THERES A NPC
-    game.currentRoom->getNPC().coutDialog(0);
+    if (game.currentRoom->getNPCpresence()) {
+        game.currentRoom->getNPC().coutDialog(0);
+    }
+    else {
+        cout << endl
+             << "There's no one there to talk to..." << endl
+             << endl;
+    }
 }
 
