@@ -130,3 +130,10 @@ void MainWindow::on_pushButton_11_clicked()
     player.checkInventory();
 }
 
+
+void MainWindow::on_pushButton_12_clicked()
+{
+    //CHECK IF THERES A NPC
+    game.currentRoom->getNPC().coutDialog(0);
+}
+

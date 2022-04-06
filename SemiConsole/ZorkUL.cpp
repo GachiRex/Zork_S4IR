@@ -22,7 +22,7 @@ void ZorkUL::createRooms()  {
         //isLocked? default=0?
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
-        a->addNPC(create)
+        a->addNPC(createNPC_C(),a);
 	b = new Room("b");
         b->addItem(new Item("xx", 3, 33));
         b->addItem(new Item("yy", 4, 44));
