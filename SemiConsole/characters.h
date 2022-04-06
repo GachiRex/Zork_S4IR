@@ -3,5 +3,6 @@
 #include "entity.h"
 
 NPC createNPC_Cindy();
+NPC createNPC_Maxime();
 
 #endif // CHARACTERS_H

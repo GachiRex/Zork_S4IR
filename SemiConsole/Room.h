@@ -17,8 +17,10 @@ private:
 	string exitString();
     vector <Item> itemsInRoom;
     NPC NPCinRoom; //single NPC per room
+    Enemy MobInRoom;
     bool isNorthLocked;
     bool isNPCpresent;
+    bool isMobPresent;
 
 public:
     int numberOfItems();
@@ -38,6 +40,9 @@ public:
     void setNPCpresence(bool flag);
     bool getNPCpresence();
     NPC getNPC();
+    Enemy getMob();
+    void setMobPresence(bool flag);
+    bool getMobPresence();
 };
 
 #endif

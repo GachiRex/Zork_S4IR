@@ -41,7 +41,13 @@ void MainWindow::on_lineEdit_returnPressed()
 inline void MainWindow::Go(string dst) {
     Room* nextRoom = game.currentRoom->nextRoom(dst);
     if (nextRoom == NULL) {
-        cout << "[Impossible!] You cannot go " << dst << " anymore! Check the room's exits..." << endl;
+        cout << endl
+             << "Impossible! You cannot go " << dst << "...";
+        if (game.currentRoom->get_isNorthLocked() == 1) {
+            cout << endl
+                 << "The door is locked. You should find something to open it with";
+        }
+        cout << endl;
     }
     else {
         game.currentRoom = nextRoom;
@@ -91,7 +97,7 @@ void MainWindow::on_pushButton_7_clicked()
     string strRoomList[13] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"};
     string ranDst = strRoomList[rand()%13];
 
-    cout << endl << "[Teleportation] teleported to a random room: room  "<< ranDst << endl;
+    cout << endl << "[Teleportation] Teleported to a random room: room  "<< ranDst << endl;
     game.currentRoom = game.roomList[ranDst];
     cout << game.currentRoom->longDescription() << endl;
 }
@@ -104,17 +110,17 @@ void MainWindow::on_pushButton_8_clicked() {
 //Map display button
 void MainWindow::on_pushButton_9_clicked()
 {
-        cout << "        [m]        " << endl;
-        cout << "         |         " << endl;
+        cout << "           [m]        " << endl;
+        cout << "             |         " << endl;
         cout << "[h] --- [f] --- [g]" << endl;
-        cout << "         |         " << endl;
-        cout << "         |         " << endl;
+        cout << "             |         " << endl;
+        cout << "             |         " << endl;
         cout << "[c] --- [a] --- [b]" << endl;
-        cout << "         |         " << endl;
-        cout << "         |         " << endl;
+        cout << "             |         " << endl;
+        cout << "             |         " << endl;
         cout << "[i] --- [d] --- [e]" << endl;
-        cout << " |               |" << endl;
-        cout << " |               |" << endl;
+        cout << " |                       |" << endl;
+        cout << " |                       |" << endl;
         cout << "[j] --- [k] --- [l]" << endl;
 }
 
@@ -134,7 +140,10 @@ void MainWindow::on_pushButton_11_clicked()
 void MainWindow::on_pushButton_12_clicked()
 {
     if (game.currentRoom->getNPCpresence()) {
-        game.currentRoom->getNPC().coutDialog(0);
+        if (game.currentRoom->getNPC().getDialogNb() >= 0) {
+            game.currentRoom->getNPC().setDialogNb(game.currentRoom->getNPC().getDialogNb()-1);
+        }
+        game.currentRoom->getNPC().coutDialog(game.currentRoom->getNPC().getDialogNb());
     }
     else {
         cout << endl

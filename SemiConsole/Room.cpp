@@ -29,7 +29,7 @@ void Room::set_isNorthLocked(bool flag){
 //Locks or unlocks northern exit of a room
 void Room::northLock(Room *north) {
     bool flag = (get_isNorthLocked());
-    exits["north"] = (flag) ? north : NULL;
+    exits["north"] = (flag == 0) ? north : NULL;
     set_isNorthLocked(flag);
 }
 
@@ -38,14 +38,20 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-	return "room = " + description + ".\n" + displayItem() + exitString();
+    return "You are in room  " + description + ".\n" + displayItem() + exitString();
 }
 
 string Room::exitString() {
-	string returnString = "\nexits =";
+    string returnString = "\nYou realize you can go..";
 	for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
 		// Loop through map
-		returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
+        returnString += ", " + i->first;	// access the "first" element of the pair (direction as a string)
+    if (get_isNorthLocked()) {
+        returnString += "\nThe northern gate seems locked";
+    }
+    if (getNPCpresence()) {
+        returnString += "\nYou notice someone in the room";
+    }
 	return returnString;
 }
 
@@ -64,10 +70,10 @@ void Room::addItem(Item *inItem) {
 }
 
 string Room::displayItem() {
-    string tempString = "items in room = ";
+    string tempString = "You notice these things in the room: ";
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
-        tempString = "no items in room";
+        tempString = "There's nothing interesting in this room...";
         }
     else if (itemsInRoom.size() > 0) {
        int x = (0);
@@ -106,6 +112,7 @@ int Room::isItemInRoom(string inString)
 
 void Room::addNPC(NPC inNPC, Room *room) {
     room->NPCinRoom = inNPC;
+    room->setNPCpresence(1);
 }
 
 NPC Room::getNPC() {
@@ -118,4 +125,16 @@ void Room::setNPCpresence(bool flag) {
 
 bool Room::getNPCpresence() {
     return isNPCpresent;
+}
+
+Enemy Room::getMob() {
+    return MobInRoom;
+}
+
+void Room::setMobPresence(bool flag) {
+    isMobPresent = flag;
+}
+
+bool Room::getMobPresence() {
+    return isMobPresent;
 }
