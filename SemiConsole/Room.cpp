@@ -87,3 +87,11 @@ int Room::isItemInRoom(string inString)
         }
     return -1;
 }
+
+void Room::addNPC(NPC inNPC, Room *room) {
+    room->NPCinRoom = inNPC;
+}
+
+NPC Room::getNPC() {
+    return NPCinRoom;
+}

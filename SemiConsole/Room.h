@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "item.h"
+#include "entity.h"
 using namespace std;
 using std::vector;
 
@@ -15,7 +16,7 @@ private:
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
-
+    NPC NPCinRoom; //single NPC per room
 
 public:
     int numberOfItems();
@@ -28,6 +29,9 @@ public:
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
-    bool isLocked;};
+    bool isLocked;
+    void addNPC(NPC inNPC, Room *room);
+    NPC getNPC();
+};
 
 #endif

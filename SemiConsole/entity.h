@@ -35,8 +35,10 @@ public:
 };
 
 class NPC : public Entity {
+private:
+    vector <string> dialogList; //max nb of dialogs
 public:
-    array<string, 10> dialogList; //max nb of dialogs
+    void addDialog(string dialog);
     void coutDialog(int dialogNb) {
         cout << this->GetName() << ": " << dialogList[dialogNb] << endl;
     }
@@ -52,5 +54,6 @@ public:
 
 Player createPlayer(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0);
 Enemy createMob(string name, string description, int hp, int mp, int spawnRate);
+NPC createNPC(string name, string description = "[placeholder] An NPC", int hp = 1, int mp = 1);
 
 #endif // ENTITY_H

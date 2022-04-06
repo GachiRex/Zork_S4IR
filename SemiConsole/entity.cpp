@@ -29,16 +29,27 @@ void Player::checkInventory() {
     }
 }
 
+void NPC::addDialog(string dialog) {
+    if (dialogList.size() < 10) {
+        dialogList.push_back(dialog);
+    }
+    else {
+        cout << "[debug] NPC already has 10 dialogs." << endl;
+    }
+}
+
 //create player test
 Player createPlayer(string name, string description, int hp, int mp, int money) {
     Player player;
     player.setName(name);
     player.setDescription(description);
+
+    //default
     player.setHP(hp);
     player.setMP(mp);
     player.setMoney(money);
 
-    //CHANGE THIS --test
+    //CHANGE THIS ---------------test
     Item item;
     item.setName("Garbage");
     item.setValue(1);
@@ -58,4 +69,17 @@ Enemy createMob(string name, string description, int hp, int mp, int spawnRate) 
     mob.setMP(mp);
     mob.SetSpawnRate(spawnRate);
     return mob;
+}
+
+//create npc test
+NPC createNPC(string name, string description, int hp, int mp) {
+    NPC npc;
+    npc.setName(name);
+    npc.setDescription(description);
+
+    //default
+    npc.setHP(hp);
+    npc.setMP(mp);
+
+    return npc;
 }

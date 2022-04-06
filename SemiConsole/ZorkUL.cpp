@@ -4,6 +4,7 @@
 
 using namespace std;
 #include "ZorkUL.h"
+#include "characters.h"
 
 /*int main (int argc, char* argv[]) {
 	ZorkUL temp;
@@ -21,6 +22,7 @@ void ZorkUL::createRooms()  {
         //isLocked? default=0?
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
+        a->addNPC(create)
 	b = new Room("b");
         b->addItem(new Item("xx", 3, 33));
         b->addItem(new Item("yy", 4, 44));
@@ -32,7 +34,6 @@ void ZorkUL::createRooms()  {
 	h = new Room("h");
 	i = new Room("i");
 
-	//New rooms
 	j = new Room("j");
     k = new Room("k");
     l = new Room("l");
@@ -59,13 +60,12 @@ void ZorkUL::createRooms()  {
     b->setExits(NULL, NULL, NULL, a);
 	c->setExits(NULL, a, NULL, NULL);
 	d->setExits(a, e, NULL, i);
-	e->setExits(NULL, NULL, NULL, d);
+    e->setExits(NULL, NULL, l, d);
 	f->setExits(m, g, a, h);
 	g->setExits(NULL, NULL, NULL, f);
 	h->setExits(NULL, f, NULL, NULL);
     i->setExits(NULL, d, j, NULL);
 
-    //New rooms
     j->setExits(i, k, NULL, NULL);
     k->setExits(NULL, l, NULL, j);
     l->setExits(e, NULL, NULL, k);
