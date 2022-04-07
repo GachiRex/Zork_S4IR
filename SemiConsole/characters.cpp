@@ -2,7 +2,7 @@
 #include "characters.h"
 
 //Functions to create specific NPCs and set their dialogs
-
+/*
 //NPC "Cindy" test
 NPC createNPC_Cindy() {
     NPC Cindy = createNPC("Cindy l'Abrogée", "A strange little lady");
@@ -20,7 +20,7 @@ NPC createNPC_Maxime() {
     Maxime.addDialog("Shoo! Shoo, sheeple!");
     Maxime.addDialog(longIntro);
     return Maxime;
-}
+}*/
 
 /*NPC "Lionel"
 NPC createNPC_Lionel() {

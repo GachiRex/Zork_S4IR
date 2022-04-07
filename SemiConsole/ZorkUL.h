@@ -25,6 +25,7 @@ public:
 	void goRoom(Command command);
     void createItems();
     void displayItems();
+    void createNpcs();
 //public
 	ZorkUL();
 	void play();

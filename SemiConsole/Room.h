@@ -16,7 +16,7 @@ private:
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
-    NPC NPCinRoom; //single NPC per room
+    NPC* NPCinRoom; //single NPC per room
     Enemy MobInRoom;
     bool isNorthLocked;
     bool isNPCpresent;
@@ -36,10 +36,10 @@ public:
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
-    void addNPC(NPC inNPC, Room *room);
+    void addNPC(NPC* inNPC, Room *room);
     void setNPCpresence(bool flag);
     bool getNPCpresence();
-    NPC getNPC();
+    NPC* getNPC();
     Enemy getMob();
     void setMobPresence(bool flag);
     bool getMobPresence();

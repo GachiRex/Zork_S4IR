@@ -39,6 +39,7 @@ private:
     vector <string> dialogList;
     int dialogNb;
 public:
+    NPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1);
     void addDialog(string dialog);
     void coutDialog(int dialogNb);
     int getDialogNb();
@@ -56,6 +57,6 @@ public:
 
 Player createPlayer(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0);
 Enemy createMob(string name, string description, int hp, int mp, int spawnRate);
-NPC createNPC(string name, string description = "An NPC", int dialogNb = 2, int hp = 1, int mp = 1);
+NPC createNPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1);
 
 #endif // ENTITY_H

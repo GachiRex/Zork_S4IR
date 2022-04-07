@@ -140,10 +140,14 @@ void MainWindow::on_pushButton_11_clicked()
 void MainWindow::on_pushButton_12_clicked()
 {
     if (game.currentRoom->getNPCpresence()) {
-        if (game.currentRoom->getNPC().getDialogNb() >= 0) {
-            game.currentRoom->getNPC().setDialogNb(game.currentRoom->getNPC().getDialogNb()-1);
+        int dNb = game.currentRoom->getNPC()->getDialogNb();
+        if (dNb >= 0) {
+            game.currentRoom->getNPC()->coutDialog(dNb);
+            dNb--; game.currentRoom->getNPC()->setDialogNb(dNb);
         }
-        game.currentRoom->getNPC().coutDialog(game.currentRoom->getNPC().getDialogNb());
+        else {
+            game.currentRoom->getNPC()->coutDialog(0);
+        }
     }
     else {
         cout << endl

@@ -74,6 +74,15 @@ float Enemy::getSpawnRate() {
 
 /** NPC FUNCTIONS **/
 
+NPC::NPC(string name, string description, int dialogNb, int hp, int mp) {
+    this->setName(name);
+    this->setDescription(description);
+    //default
+    this->setDialogNb(dialogNb);
+    this->setHP(hp);
+    this->setMP(mp);
+}
+
 void NPC::addDialog(string dialog) {
     if (dialogList.size() < 10) {
         dialogList.push_back(dialog);
@@ -96,6 +105,7 @@ int NPC::getDialogNb() {
 }
 void NPC::setDialogNb(int inDialogNb) {
     dialogNb = inDialogNb;
+    cout << endl << "setdialognb: dialogNb set to" << inDialogNb << endl << "=> dialogNb =" << dialogNb << endl;
 }
 
 /** CREATE FUNCTIONS --TEST**/
@@ -134,14 +144,5 @@ Enemy createMob(string name, string description, int hp, int mp, int spawnRate) 
 }
 
 //create npc test
-NPC createNPC(string name, string description, int dialogNb, int hp, int mp) {
-    NPC npc;
-    npc.setName(name);
-    npc.setDescription(description);
-    //default
-    npc.setDialogNb(dialogNb);
-    npc.setHP(hp);
-    npc.setMP(mp);
 
-    return npc;
-}
+

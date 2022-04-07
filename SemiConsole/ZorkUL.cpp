@@ -16,16 +16,56 @@ ZorkUL::ZorkUL() {
     createRooms();
 }
 
+void ZorkUL::createNpcs() {
+    NPC *Maxime, *Cindy;
+    string longIntro;
+
+    Maxime = new NPC("Maxime Ouais-Sinon", "An obnoxious looking lady");
+    longIntro = "";
+    longIntro += "Mine brother. Thee were did summon by Herr Prosious himself. Thee shalt findeth Prosious in the most northern room. ";
+    longIntro += "However, thee shalt findeth two keys before meeting that gent. One to unlock this northern gate, another for the northern gate behind this northern gate. ";
+    longIntro += "Now, begone and findeth the first key, maggot!\n";
+    Maxime->addDialog("Shoo! Shoo, sheeple!");
+    Maxime->addDialog(longIntro);
+
+    Cindy = new NPC("Cindy l'Abrogée", "A strange little lady");
+    Cindy->addDialog("Ayaaa ISSOU!");
+    Cindy->addDialog("Lionel ce fou...");
+}
+
 void ZorkUL::createRooms()  {
+    /** Creating the NPCs for the Rooms **/
+    NPC *Maxime, *Cindy, *Lionel;
+    string longIntro;
+
+    Maxime = new NPC("Maxime Ouais-Sinon", "An obnoxious looking lady");
+    longIntro += "Mine brother. Thee were did summon by Herr Prosious himself. Thee shalt findeth Prosious in the most northern room. ";
+    longIntro += "However, thee shalt findeth two keys before meeting that gent. One to unlock this northern gate, another for the northern gate behind this northern gate. ";
+    longIntro += "Now, begone and findeth the first key, maggot!\n";
+    Maxime->addDialog("Shoo! Shoo, sheeple!");
+    Maxime->addDialog(longIntro);
+    longIntro.clear();
+
+    Cindy = new NPC("Cindy l'Abrogée", "A strange little lady");
+    Cindy->addDialog("Ayaaa ISSOU!");
+    Cindy->addDialog("Lionel ce fou...");
+
+    Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy", 0);
+    longIntro += "Ach, hello\n";
+    Lionel->addDialog(longIntro);
+    longIntro.clear();
+
+    /** Creating Rooms **/
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m;
     //set second parameter to 1 if northLocked
     a = new Room("a",1);
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
-        a->addNPC(createNPC_Maxime(),a);
+        a->addNPC(Maxime,a);
 	b = new Room("b");
         b->addItem(new Item("xx", 3, 33));
         b->addItem(new Item("yy", 4, 44));
+        b->addNPC(Cindy,b);
 	c = new Room("c");
 	d = new Room("d");
 	e = new Room("e");
@@ -33,11 +73,11 @@ void ZorkUL::createRooms()  {
 	g = new Room("g");
 	h = new Room("h");
 	i = new Room("i");
-
 	j = new Room("j");
     k = new Room("k");
     l = new Room("l");
     m = new Room("m");
+        m->addNPC(Lionel,m);
 
     //Room list for tel
     roomList = {{"a", a},
