@@ -111,6 +111,8 @@ private slots:
 
     void on_bullyButton_clicked();
 
+    void on_interactButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QDebugStream *redirect;

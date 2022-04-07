@@ -13,11 +13,11 @@ private:
 	string longDescription;
 	int weightGrams;
 	float value;
-	bool weaponCheck;
+    bool armorCheck;
     bool keyCheck;
 
 public:
-    Item (string inName, string inDescription, bool weaponCheck = 0, bool keyCheck = 0);
+    Item (string inName, string inDescription, bool armorCheck = 0, bool keyCheck = 0);
     string getName();
 	string getShortDescription();
     string getLongDescription();
@@ -25,8 +25,8 @@ public:
 	void setWeight(int weightGrams);
 	float getValue();
 	void setValue(float value);
-    bool getWeaponCheck();
-    void setWeaponCheck(bool weaponCheck);
+    bool getArmorCheck();
+    void setArmorCheck(bool weaponCheck);
     bool getKeyCheck();
     void setKeyCheck(bool keyCheck);
 };

@@ -29,11 +29,15 @@ class Player : public Entity {
 private:
     float money;
     vector <Item> Inventory;
+    int keyNb;
 public:
-    void invAddItem(Item item);
+    Player(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0, int keyNb = 0);
+    void invAddItem(Item *item);
     void checkInventory();
-    void buyItem(Item item);
+    void buyItem(Item *item);
     void setMoney(int inMoney);
+    int getKeyNb();
+    void setKeyNb(int nb);
 };
 
 class NPC : public Entity {
@@ -59,9 +63,5 @@ public:
     void setDrop(Item *inDrop);
     Item* getDrop();
 };
-
-Player createPlayer(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0);
-Enemy createMob(string name, string description, int hp, int mp, int spawnRate);
-NPC createNPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1);
 
 #endif // ENTITY_H

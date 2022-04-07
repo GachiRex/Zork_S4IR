@@ -1,9 +1,9 @@
 #include "item.h"
 
-Item::Item (string inName, string inDescription, bool weaponCheck, bool keyCheck) {
+Item::Item (string inName, string inDescription, bool armorCheck, bool keyCheck) {
     this->name = inName;
     this->description = inDescription;
-    this->weaponCheck = weaponCheck;
+    this->armorCheck = armorCheck;
     this->keyCheck = keyCheck;
 }
 
@@ -42,12 +42,12 @@ bool Item::getKeyCheck() {
     return keyCheck;
 }
 
-void Item::setWeaponCheck(bool inWeaponCheck) {
-    weaponCheck = inWeaponCheck;
+void Item::setArmorCheck(bool inArmorCheck) {
+    armorCheck = inArmorCheck;
 }
 
-bool Item::getWeaponCheck() {
-    return weaponCheck;
+bool Item::getArmorCheck() {
+    return armorCheck;
 }
 
 string Item::getShortDescription()

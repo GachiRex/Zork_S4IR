@@ -14,7 +14,8 @@ using namespace std;
 
 class ZorkUL {
 public:
-//private
+//private:
+    Player *zorkPlayer;
 	Parser parser;
 	Room *currentRoom;
     map<string, Room*> roomList;
@@ -26,7 +27,7 @@ public:
     void createItems();
     void displayItems();
     void createNpcs();
-//public
+//public:
 	ZorkUL();
 	void play();
 	string go(string direction);

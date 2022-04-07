@@ -34,6 +34,12 @@ void ZorkUL::createNpcs() {
 }
 
 void ZorkUL::createRooms()  {
+    /** Create the player **/
+    Player *player;
+    player = new Player("Player","The 'hero'");
+    player->invAddItem(new Item("Gros caillou","Un gros caillou"));
+    zorkPlayer = player;
+
     /** Creating the NPCs for the Rooms **/
     NPC *Maxime, *Cindy, *Lionel;
     string longIntro;
@@ -60,21 +66,19 @@ void ZorkUL::createRooms()  {
 
     /** Creating Enemies **/
     Enemy *ISG, *SUP;
-    ISG = new Enemy("ISG student", "An hostile grocer", 10, 0, new Item("ISG Card","Useless. But pretty expensive."));
-    SUP = new Enemy("SUP student", "A naive youngster", 10, 0, new Item("SUP Card","Could open A's door..."));
+    ISG = new Enemy("ISG student", "An hostile grocer", 21, 14, new Item("ISG Card","Useless. But pretty expensive."));
+    SUP = new Enemy("SUP student", "A naive youngster", 19, 10, new Item("SUP Card","Could open A's door...", 0, 1));
 
     /** Creating Rooms **/
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m;
     //set second parameter to 1 if northLocked
     a = new Room("a",1);
-        a->addItem(new Item("x","The letter X, amazing!"));
-        a->addItem(new Item("y","The letter Y, woaw!"));
         a->addNPC(Maxime,a);
-	b = new Room("b");
-        b->addItem(new Item("xx","A double X, amazing!"));
-        b->addItem(new Item("yy","Yyyy yyy"));
+    b = new Room("b");
         b->addNPC(Cindy,b);
-	c = new Room("c");
+    c = new Room("c");
+        c->addItem(new Item("Nerdy shirt","A shirt with the ACDC logo on it. Intimidating enough...", 1));
+
 	d = new Room("d");
 	e = new Room("e");
     f = new Room("f",1);
@@ -123,9 +127,6 @@ void ZorkUL::createRooms()  {
     l->setExits(e, NULL, NULL, k);
     m->setExits(NULL, NULL, f, NULL);
 
-//Rooms with locked northern exits
-    a->northLock(f);
-    f->northLock(m);
 
     currentRoom = a;
 }

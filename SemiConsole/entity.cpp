@@ -40,34 +40,53 @@ int Entity::getMP() {
 
 /** PLAYER FUNCTIONS **/
 
-void Player::invAddItem(Item item) {
-    if (Inventory.size() == 5) {
-        cout << "[Inventory] Inventory is full!" << endl;
-    }
-    else {
-        Inventory.push_back(item);
+Player::Player(string name, string description, int hp, int mp, int money, int keyNb) {
+    this->setName(name);
+    this->setDescription(description);
+
+    this->setHP(hp);
+    this->setMP(mp);
+    this->setMoney(money);
+
+    this->setKeyNb(keyNb);
+};
+
+void Player::invAddItem(Item *item) {
+    Inventory.push_back(*item);
+    if ( item->getKeyCheck() ) {
+        setKeyNb(getKeyNb() + 1);
     }
 }
 
 void Player::checkInventory() {
+    cout << endl
+         << "In your tiny pocket, you have:"
+         << endl;
     for ( unsigned long i = 0 ; i < Inventory.size() ; i++) {
-            cout << endl
+            cout << endl << i + 1 << ". "
                  << "Item name: " << Inventory[i].getName() << endl
                  << "Item description: " << Inventory[i].getShortDescription() << endl
-                 << "Item value: " << Inventory[i].getValue() << endl
-                 << "Weapon? " << ((Inventory[i].getWeaponCheck()) ? "Yes" : "No") << endl
+                 << "Armor? " << ((Inventory[i].getArmorCheck()) ? "Yes, +5 Intimidation" : "No") << endl
                  << "Key? " << ((Inventory[i].getKeyCheck()) ? "Yes" : "No") << endl
                  << endl;
     }
 }
 
-void Player::buyItem(Item item) {
-    money -= item.getValue() ;
+void Player::buyItem(Item *item) {
+    money -= item->getValue() ;
     invAddItem(item);
 }
 
 void Player::setMoney(int inMoney) {
     money = inMoney;
+}
+
+int Player::getKeyNb() {
+    return keyNb;
+}
+
+void Player::setKeyNb(int nb) {
+    keyNb = nb;
 }
 
 /** ENEMY FUNCTIONS **/
@@ -133,27 +152,4 @@ void NPC::setDialogNb(int inDialogNb) {
 }
 
 /** CREATE FUNCTIONS --TEST**/
-
-Player createPlayer(string name, string description, int hp, int mp, int money) {
-    Player player;
-    player.setName(name);
-    player.setDescription(description);
-
-    //default
-    player.setHP(hp);
-    player.setMP(mp);
-    player.setMoney(money);
-
-    /*//DELETE THIS ---------------Inventory test
-    Item item;
-    item.setName("Gros Caillou");
-    item.setValue(0);
-    item.setWeaponCheck(0);
-    item.setKeyCheck(1);
-    player.invAddItem(item);
-    //*/
-
-    return player;
-}
-
 

@@ -16,26 +16,30 @@ private:
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
-    NPC* NPCinRoom; //single NPC per room
+    NPC* NPCinRoom;
     Enemy* MobInRoom;
     bool isNorthLocked;
     bool isNPCpresent;
     bool isMobPresent;
 
 public:
+    /** Description **/
     int numberOfItems();
     Room(string description, bool isNorthLocked = 0);
 	void setExits(Room *north, Room *east, Room *south, Room *west);
-    void northLock(Room *north); //lock north exit
     bool get_isNorthLocked();
     void set_isNorthLocked(bool flag);
 	string shortDescription();
 	string longDescription();
 	Room* nextRoom(string direction);
+    /** Items **/
     void addItem(Item *inItem);
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
+    Item* getItem(Room *room);
+    void delItem(Room *room);
+    /** Entities **/
     void addNPC(NPC *inNPC, Room *room);
     void setNPCpresence(bool flag);
     bool getNPCpresence();
@@ -44,7 +48,9 @@ public:
     void setMobPresence(bool flag);
     bool getMobPresence();
     Enemy* getMob();
-    void Bully(Player player, Room *room);
+    /** Room interaction **/
+    void Bully(Player *player, Room *room);
+    void Interact(Player *player, Room *room);
 };
 
 #endif

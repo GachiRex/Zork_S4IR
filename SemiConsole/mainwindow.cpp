@@ -9,7 +9,6 @@ using namespace std;
 #include "ZorkUL.h"
 
 ZorkUL game;
-Player player = createPlayer("p1");
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -43,10 +42,6 @@ inline void MainWindow::Go(string dst) {
     if (nextRoom == NULL) {
         cout << endl
              << "Impossible! You cannot go " << dst << "...";
-        if (game.currentRoom->get_isNorthLocked() == 1) {
-            cout << endl
-                 << "The door is locked. You should find something to open it with";
-        }
         cout << endl;
     }
     else {
@@ -82,7 +77,14 @@ void MainWindow::on_pushButton_4_clicked()
 //Go North button
 void MainWindow::on_pushButton_5_clicked()
 {
-    Go("north");
+    if (game.currentRoom->get_isNorthLocked() == 1) {
+        cout << endl
+             << "The door is locked. You should find something to open it with"
+             << endl;
+    }
+    else {
+        Go("north");
+    }
 }
 
 //Help display button
@@ -126,14 +128,14 @@ void MainWindow::on_pushButton_9_clicked()
 
 //Check Player's Stats button
 void MainWindow::on_pushButton_10_clicked(){
-    player.CheckStats();
+    game.zorkPlayer->CheckStats();
 }
 //p
 
 //Check Player's Inventory button
 void MainWindow::on_pushButton_11_clicked()
 {
-    player.checkInventory();
+    game.zorkPlayer->checkInventory();
 }
 
 
@@ -163,12 +165,18 @@ void MainWindow::on_pushButton_12_clicked()
 void MainWindow::on_bullyButton_clicked()
 {
     if(game.currentRoom->getMobPresence()) {
-            game.currentRoom->Bully(player, game.currentRoom);
+            game.currentRoom->Bully(game.zorkPlayer, game.currentRoom);
     }
     else {
         cout << endl
              << "You can only bully dumb-looking people..." << endl
              << endl;
     }
+}
+
+
+void MainWindow::on_interactButton_clicked()
+{
+    game.currentRoom->Interact(game.zorkPlayer, game.currentRoom);
 }
 

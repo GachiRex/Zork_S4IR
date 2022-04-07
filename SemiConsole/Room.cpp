@@ -7,6 +7,8 @@ Room::Room(string description, bool isNorthLocked) {
     this->isNorthLocked = isNorthLocked;
 }
 
+/** Room description **/
+
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 	if (north != NULL)
 		exits["north"] = north;
@@ -24,13 +26,6 @@ bool Room::get_isNorthLocked() {
 
 void Room::set_isNorthLocked(bool flag){
     isNorthLocked = flag;
-}
-
-//Locks or unlocks northern exit of a room
-void Room::northLock(Room *north) {
-    bool flag = (get_isNorthLocked());
-    exits["north"] = (flag == 0) ? north : NULL;
-    set_isNorthLocked(flag);
 }
 
 string Room::shortDescription() {
@@ -68,6 +63,8 @@ Room* Room::nextRoom(string direction) {
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
+/** Items **/
+
 void Room::addItem(Item *inItem) {
     itemsInRoom.push_back(*inItem);
 }
@@ -86,7 +83,7 @@ string Room::displayItem() {
             }
         }
     return tempString;
-    }
+}
 
 int Room::numberOfItems() {
     return itemsInRoom.size();
@@ -111,6 +108,17 @@ int Room::isItemInRoom(string inString)
             }
         }
     return -1;
+}
+
+Item* Room::getItem(Room *room){
+    //Must NOT be called if (!size(room->itemsInRoom)
+    Item *headItem;
+    headItem = &room->itemsInRoom[0];
+    return headItem;
+}
+
+void Room::delItem(Room *room) {
+    room->itemsInRoom.erase(room->itemsInRoom.begin());
 }
 
 /** NPC functions  **/
@@ -157,20 +165,51 @@ bool Room::getMobPresence() {
     return isMobPresent;
 }
 
-void Room::Bully(Player player, Room *room) {
-    if (player.getMP() > room->getMob()->getMP()) {
-        cout << "Your intimidated the " << room->getMob()->GetName() << " with your appearance. He dropped something while fleeing." << endl;
+void Room::Bully(Player *player, Room *room) {
+    if (player->getMP() > room->getMob()->getMP()) {
+        cout << endl
+             << "Your intimidated the " << room->getMob()->GetName()
+             << " with your appearance. He dropped something while fleeing: A "
+             << room->getMob()->getDrop()->getName()
+             << endl;
+        player->invAddItem(room->getMob()->getDrop());
         room->addMob(room->getMob(), room, 1);
-        //add inventory
     }
     else {
-        if (player.getHP() > room->getMob()->getHP()) {
-            cout << "You punch the " << room->getMob()->GetName() << " right in their face and search their pockets. You found something." << endl;
+        if (player->getHP() > room->getMob()->getHP()) {
+            cout << endl
+                 << "You punch the " << room->getMob()->GetName() << " right in their face and search their pockets. You found something."
+                 << endl;
+            player->invAddItem(room->getMob()->getDrop());
             room->addMob(room->getMob(), room, 1);
-            //add inventory
         }
         else {
-            cout << "You're not strong or intimidating enough to bully the " << room->getMob()->GetName() << ". Besides, it's not nice." << endl;
+            cout << endl
+                 << "You're not strong or intimidating enough to bully the " << room->getMob()->GetName() << ". Besides, it's not nice."
+                 << endl;
         }
+    }
+}
+
+void Room::Interact(Player *player, Room *room) {
+    if ( room->numberOfItems() ) {
+        player->invAddItem(room->getItem(room));
+        cout << endl
+             << "You picked up a " << room->getItem(room)->getName()
+             << endl;
+        room->delItem(room);
+    }
+    else if ( room->get_isNorthLocked() ) {
+        if ( player->getKeyNb() ) {
+            room->set_isNorthLocked(0);
+            cout << endl
+                 << "You unlocked the door..."
+                 <<endl ;
+        }
+    }
+    else {
+        cout << endl
+             << "There's nothing to interact with."
+             << endl;
     }
 }
