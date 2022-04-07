@@ -39,43 +39,55 @@ void ZorkUL::createRooms()  {
     string longIntro;
 
     Maxime = new NPC("Maxime Ouais-Sinon", "An obnoxious looking lady");
+    Maxime->addDialog("Shoo! Shoo, sheeple!");
     longIntro += "Mine brother. Thee were did summon by Herr Prosious himself. Thee shalt findeth Prosious in the most northern room. ";
     longIntro += "However, thee shalt findeth two keys before meeting that gent. One to unlock this northern gate, another for the northern gate behind this northern gate. ";
     longIntro += "Now, begone and findeth the first key, maggot!\n";
-    Maxime->addDialog("Shoo! Shoo, sheeple!");
     Maxime->addDialog(longIntro);
     longIntro.clear();
 
     Cindy = new NPC("Cindy l'Abrogée", "A strange little lady");
-    Cindy->addDialog("Ayaaa ISSOU!");
-    Cindy->addDialog("Lionel ce fou...");
+    Cindy->addDialog("... *she is staring at a blank screen*");
+    longIntro += "You want to open the the Room A's north door? You should ask a SUP student to open it for you. ";
+    longIntro += "I think there's one in J. OR was it in L? Wait, I'm just gonna look it up for you. Just wait.\n" ;
+    Cindy->addDialog(longIntro);
+    longIntro.clear();
 
     Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy", 0);
     longIntro += "Ach, hello\n";
     Lionel->addDialog(longIntro);
     longIntro.clear();
 
+    /** Creating Enemies **/
+    Enemy *ISG, *SUP;
+    ISG = new Enemy("ISG student", "An hostile grocer", 10, 0, new Item("ISG Card","Useless. But pretty expensive."));
+    SUP = new Enemy("SUP student", "A naive youngster", 10, 0, new Item("SUP Card","Could open A's door..."));
+
     /** Creating Rooms **/
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m;
     //set second parameter to 1 if northLocked
     a = new Room("a",1);
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
+        a->addItem(new Item("x","The letter X, amazing!"));
+        a->addItem(new Item("y","The letter Y, woaw!"));
         a->addNPC(Maxime,a);
 	b = new Room("b");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
+        b->addItem(new Item("xx","A double X, amazing!"));
+        b->addItem(new Item("yy","Yyyy yyy"));
         b->addNPC(Cindy,b);
 	c = new Room("c");
 	d = new Room("d");
 	e = new Room("e");
     f = new Room("f",1);
-	g = new Room("g");
+    g = new Room("g");
 	h = new Room("h");
 	i = new Room("i");
 	j = new Room("j");
+        j->addMob(ISG,j);
+        //delete(ISG); ?
     k = new Room("k");
     l = new Room("l");
+        l->addMob(SUP,l);
+        //delete(SUP); ?
     m = new Room("m");
         m->addNPC(Lionel,m);
 

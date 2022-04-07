@@ -47,10 +47,15 @@ string Room::exitString() {
 		// Loop through map
         returnString += ", " + i->first;	// access the "first" element of the pair (direction as a string)
     if (get_isNorthLocked()) {
-        returnString += "\nThe northern gate seems locked";
+        returnString += "\nThe northern dooor seems locked";
     }
     if (getNPCpresence()) {
-        returnString += "\nYou notice someone in the room";
+        returnString += "\nYou notice someone in the room:";
+        returnString += "\nIt's " + getNPC()->GetName() + ". " + getNPC()->GetDescription() + "...";
+    }
+    if (getMobPresence()) {
+        returnString += "\nYou notice someone dumb-looking in the room:";
+        returnString += "\nIt's a " + getMob()->GetName() + ". " + getMob()->GetDescription() + "...";
     }
 	return returnString;
 }
@@ -64,8 +69,6 @@ Room* Room::nextRoom(string direction) {
 }
 
 void Room::addItem(Item *inItem) {
-    //cout <<endl;
-    //cout << "Just added" + inItem->getLongDescription();
     itemsInRoom.push_back(*inItem);
 }
 
@@ -78,7 +81,7 @@ string Room::displayItem() {
     else if (itemsInRoom.size() > 0) {
        int x = (0);
         for (int n = sizeItems; n > 0; n--) {
-            tempString = tempString + itemsInRoom[x].getShortDescription() + "  " ;
+            tempString = tempString + itemsInRoom[x].getName() + "  " ;
             x++;
             }
         }
@@ -110,6 +113,8 @@ int Room::isItemInRoom(string inString)
     return -1;
 }
 
+/** NPC functions  **/
+
 void Room::addNPC(NPC *inNPC, Room *room) {
     room->NPCinRoom = inNPC;
     room->setNPCpresence(1);
@@ -127,6 +132,19 @@ bool Room::getNPCpresence() {
     return isNPCpresent;
 }
 
+/** Mob functions  **/
+
+void Room::addMob(Enemy *inMob, Room *room, bool flag) {
+    if (flag) {
+        room->MobInRoom = NULL;
+        room->setMobPresence(0);
+    }
+    else {
+        room->MobInRoom = inMob;
+        room->setMobPresence(1);
+    }
+}
+
 Enemy* Room::getMob() {
     return MobInRoom;
 }
@@ -137,4 +155,22 @@ void Room::setMobPresence(bool flag) {
 
 bool Room::getMobPresence() {
     return isMobPresent;
+}
+
+void Room::Bully(Player player, Room *room) {
+    if (player.getMP() > room->getMob()->getMP()) {
+        cout << "Your intimidated the " << room->getMob()->GetName() << " with your appearance. He dropped something while fleeing." << endl;
+        room->addMob(room->getMob(), room, 1);
+        //add inventory
+    }
+    else {
+        if (player.getHP() > room->getMob()->getHP()) {
+            cout << "You punch the " << room->getMob()->GetName() << " right in their face and search their pockets. You found something." << endl;
+            room->addMob(room->getMob(), room, 1);
+            //add inventory
+        }
+        else {
+            cout << "You're not strong or intimidating enough to bully the " << room->getMob()->GetName() << ". Besides, it's not nice." << endl;
+        }
+    }
 }

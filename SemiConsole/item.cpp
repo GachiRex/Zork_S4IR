@@ -1,22 +1,13 @@
 #include "item.h"
 
-Item::Item() {}
-
-Item::Item (string inDescription, int inWeightGrams, float inValue) {
-	description = inDescription;
-	setWeight(inWeightGrams);
-    value = inValue;
-}
-
-Item::Item(string inDescription) {
-	description = inDescription;
+Item::Item (string inName, string inDescription, bool weaponCheck, bool keyCheck) {
+    this->name = inName;
+    this->description = inDescription;
+    this->weaponCheck = weaponCheck;
+    this->keyCheck = keyCheck;
 }
 
 //setters&getters
-
-void Item::setName(string inName) {
-    name = inName;
-}
 
 string Item::getName() {
     return name;

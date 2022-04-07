@@ -109,6 +109,8 @@ private slots:
 
     void on_pushButton_12_clicked();
 
+    void on_bullyButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QDebugStream *redirect;

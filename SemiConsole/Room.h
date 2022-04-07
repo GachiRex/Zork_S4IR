@@ -36,13 +36,15 @@ public:
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
-    void addNPC(NPC* inNPC, Room *room);
+    void addNPC(NPC *inNPC, Room *room);
     void setNPCpresence(bool flag);
     bool getNPCpresence();
     NPC* getNPC();
-    Enemy* getMob();
+    void addMob(Enemy *inMob, Room *room, bool flag = 0); //If (flag) => Remove mob
     void setMobPresence(bool flag);
     bool getMobPresence();
+    Enemy* getMob();
+    void Bully(Player player, Room *room);
 };
 
 #endif

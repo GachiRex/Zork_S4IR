@@ -17,11 +17,8 @@ private:
     bool keyCheck;
 
 public:
-    Item ();
-    Item (string description, int inWeight, float inValue);
-    Item (string description);
+    Item (string inName, string inDescription, bool weaponCheck = 0, bool keyCheck = 0);
     string getName();
-    void setName(string inName);
 	string getShortDescription();
     string getLongDescription();
 	int getWeight();

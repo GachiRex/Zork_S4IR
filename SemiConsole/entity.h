@@ -21,6 +21,8 @@ public:
     void setMP (int inMP);
     string GetName();
     string GetDescription();
+    int getHP();
+    int getMP();
 };
 
 class Player : public Entity {
@@ -49,11 +51,13 @@ public:
 class Enemy : public Entity {
 private:
     int spwnRate;
-    list<Item> dropTable = list<Item>{3};
+    Item *drop;
 public:
-    Enemy(string name, string description, int hp, int mp, int spawnRate);
+    Enemy(string name, string description, int hp, int mp, Item *dropint, int spawnRate = 1);
     void setSpawnRate(float inSpwnRate);
     float getSpawnRate();
+    void setDrop(Item *inDrop);
+    Item* getDrop();
 };
 
 Player createPlayer(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0);

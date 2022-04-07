@@ -159,3 +159,16 @@ void MainWindow::on_pushButton_12_clicked()
     }
 }
 
+
+void MainWindow::on_bullyButton_clicked()
+{
+    if(game.currentRoom->getMobPresence()) {
+            game.currentRoom->Bully(player, game.currentRoom);
+    }
+    else {
+        cout << endl
+             << "You can only bully dumb-looking people..." << endl
+             << endl;
+    }
+}
+

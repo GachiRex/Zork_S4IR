@@ -30,6 +30,14 @@ string Entity::GetDescription() {
     return description;
 }
 
+int Entity::getHP() {
+    return hp;
+}
+
+int Entity::getMP() {
+    return mp;
+}
+
 /** PLAYER FUNCTIONS **/
 
 void Player::invAddItem(Item item) {
@@ -64,12 +72,13 @@ void Player::setMoney(int inMoney) {
 
 /** ENEMY FUNCTIONS **/
 
-Enemy::Enemy(string name, string description, int hp, int mp, int spawnRate) {
+Enemy::Enemy(string name, string description, int hp, int mp, Item *drop, int spawnRate) {
     this->setName(name);
     this->setDescription(description);
     this->setHP(hp);
     this->setMP(mp);
     this->setSpawnRate(spawnRate);
+    this->setDrop(drop);
 }
 
 void Enemy::setSpawnRate (float inSpwnRate) {
@@ -79,6 +88,14 @@ void Enemy::setSpawnRate (float inSpwnRate) {
 float Enemy::getSpawnRate() {
     return spwnRate;
 }
+
+void Enemy::setDrop(Item *inDrop) {
+    drop = inDrop;
+};
+
+Item* Enemy::getDrop() {
+    return drop;
+};
 
 /** NPC FUNCTIONS **/
 
@@ -127,14 +144,14 @@ Player createPlayer(string name, string description, int hp, int mp, int money) 
     player.setMP(mp);
     player.setMoney(money);
 
-    //DELETE THIS ---------------Inventory test
+    /*//DELETE THIS ---------------Inventory test
     Item item;
     item.setName("Gros Caillou");
     item.setValue(0);
     item.setWeaponCheck(0);
     item.setKeyCheck(1);
     player.invAddItem(item);
-    //
+    //*/
 
     return player;
 }
