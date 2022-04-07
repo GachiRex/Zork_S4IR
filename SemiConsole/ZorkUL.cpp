@@ -66,14 +66,14 @@ void ZorkUL::createRooms()  {
     Cindy->addDialog(longDialog);
     longDialog.clear();
 
-    Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy");
-    longDialog += "Ach liebe Gott! How did you beat me?! This humiliation will not got unpunished! ";
-    longDialog += "I shall isolate myself in this office and watch AKB48 now! Woe, woe upon you!";
+    Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy",1,999,999,1);
+    longDialog += "Ach liebe Gott! This humiliation will not got unpunished! ";
+    longDialog += "I shall isolate myself in this office and watch AKB48 now! Woe, woe upon you! ";
+    longDialog += "Now be gone, wench!";
     Lionel->addDialog(longDialog);
     longDialog.clear();
     longDialog += "Ach, hello there. I summoned you about your MiMos. Can you explain to me why, at the end of June, you have only logged 30 minutes on Ionis? And 2 minutes on Projet Voltaire? ";
-    longDialog += "Are you kidding me? LOL. I can cancel your prépa at any time. But as an infinitely good and merciful being, I'm willing to pass you on if you solve my Mordle. ";
-    longDialog += "It's a worlde-like thing I coded during your OCR.";
+    longDialog += "Are you kidding me? LOL.";
     Lionel->addDialog(longDialog);
 
     /** Creating Enemies **/

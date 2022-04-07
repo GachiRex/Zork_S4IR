@@ -118,13 +118,14 @@ Item* Enemy::getDrop() {
 
 /** NPC FUNCTIONS **/
 
-NPC::NPC(string name, string description, int dialogNb, int hp, int mp) {
+NPC::NPC(string name, string description, int dialogNb, int hp, int mp, bool lionelCheck) {
     this->setName(name);
     this->setDescription(description);
 
     this->setDialogNb(dialogNb);
     this->setHP(hp);
     this->setMP(mp);
+    this->isLionel = lionelCheck;
 }
 
 void NPC::addDialog(string dialog) {
@@ -151,5 +152,7 @@ void NPC::setDialogNb(int inDialogNb) {
     dialogNb = inDialogNb;
 }
 
-/** CREATE FUNCTIONS --TEST**/
+bool NPC::getLionel() {
+    return isLionel;
+}
 

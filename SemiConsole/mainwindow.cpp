@@ -3,6 +3,11 @@
 #include <QStringList>
 #include <QCoreApplication>
 #include <QTextStream>
+#include <unistd.h>
+
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QWidget>
 
 using namespace std;
 
@@ -155,7 +160,7 @@ void MainWindow::on_pushButton_3_clicked()
 //Go West Button
 void MainWindow::on_pushButton_4_clicked()
 {
-    Go("west");
+    finScreen();//Go("west");
 }
 
 //Go North button
@@ -231,6 +236,10 @@ void MainWindow::on_pushButton_12_clicked()
             dNb--; game.currentRoom->getNPC()->setDialogNb(dNb);
         }
         else {
+            if (game.currentRoom->getNPC()->getLionel()) {
+                finScreen();
+                //ender();
+            }
             game.currentRoom->getNPC()->coutDialog(0);
             cout << endl
                  << game.currentRoom->getNPC()->GetName()
@@ -275,9 +284,28 @@ void MainWindow::on_interactButton_clicked()
     }
 }
 
+void MainWindow::finScreen() {
+    QLabel *label = new QLabel();
+    QHBoxLayout *hbox = new QHBoxLayout();
+    QWidget *widg = new QWidget();
 
-void MainWindow::on_hpBar_valueChanged(int value)
-{
-    //
+    this->hide();
+
+    label->setStyleSheet("QLabel {color: white;background: blue;}");
+    label->setText("Prosious fired you from the campus.\n You have lost 40K€.");
+
+    label->setAlignment(Qt::AlignCenter);
+    label->setWindowTitle("AÏE");
+    hbox->addWidget(label);
+    widg->setLayout(hbox);
+
+    widg->setFixedSize(900,400);
+    widg->show();
 }
+
+void MainWindow::ender() {
+    this->hide();
+    //exit(1);
+}
+
 

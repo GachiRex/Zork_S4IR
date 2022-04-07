@@ -15,14 +15,15 @@ private:
     int mp;
 public:
     void CheckStats();
-    void setName(string inName);
-    void setDescription(string inDesc);
     void setHP(int inHP);
     void setMP (int inMP);
     string GetName();
     string GetDescription();
     int getHP();
     int getMP();
+protected:
+    void setName(string inName);
+    void setDescription(string inDesc);
 };
 
 class Player : public Entity {
@@ -44,12 +45,14 @@ class NPC : public Entity {
 private:
     vector <string> dialogList;
     int dialogNb;
+    bool isLionel;
 public:
-    NPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1);
+    NPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1, bool LionelFlag = 0);
     void addDialog(string dialog);
     void coutDialog(int dialogNb);
     int getDialogNb();
     void setDialogNb(int inDialogNb);
+    bool getLionel();
 };
 
 class Enemy : public Entity {

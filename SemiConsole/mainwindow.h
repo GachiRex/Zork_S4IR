@@ -87,6 +87,8 @@ private slots:
 
     void Wordle();
 
+    void finScreen();
+
     void on_pushButton_6_clicked();
 
     void on_pushButton_8_clicked();
@@ -115,8 +117,7 @@ private slots:
 
     void on_interactButton_clicked();
 
-    void on_hpBar_valueChanged(int value);
-
+    void ender();
 private:
     Ui::MainWindow *ui;
     QDebugStream *redirect;
