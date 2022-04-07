@@ -51,6 +51,7 @@ private:
     int spwnRate;
     list<Item> dropTable = list<Item>{3};
 public:
+    Enemy(string name, string description, int hp, int mp, int spawnRate);
     void setSpawnRate(float inSpwnRate);
     float getSpawnRate();
 };

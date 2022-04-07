@@ -64,6 +64,14 @@ void Player::setMoney(int inMoney) {
 
 /** ENEMY FUNCTIONS **/
 
+Enemy::Enemy(string name, string description, int hp, int mp, int spawnRate) {
+    this->setName(name);
+    this->setDescription(description);
+    this->setHP(hp);
+    this->setMP(mp);
+    this->setSpawnRate(spawnRate);
+}
+
 void Enemy::setSpawnRate (float inSpwnRate) {
     (inSpwnRate < 0 || inSpwnRate > 1) ? spwnRate = 0 : spwnRate = inSpwnRate;
 }
@@ -77,7 +85,7 @@ float Enemy::getSpawnRate() {
 NPC::NPC(string name, string description, int dialogNb, int hp, int mp) {
     this->setName(name);
     this->setDescription(description);
-    //default
+
     this->setDialogNb(dialogNb);
     this->setHP(hp);
     this->setMP(mp);
@@ -88,15 +96,15 @@ void NPC::addDialog(string dialog) {
         dialogList.push_back(dialog);
     }
     else {
-        cout << "[debug] NPC already has 10 dialogs." << endl;
+        cerr << "[debug] NPC already has 10 dialogs." << endl;
     }
 }
 
 void NPC::coutDialog(int dialogNb) {
     cout << endl
-         << "[Dialog] "
-         << this->GetName() << ": "
-         << dialogList[dialogNb] << endl
+         << "["
+         << this->GetName() << "]: "
+         << dialogList[dialogNb]
          << endl;
 }
 
@@ -105,7 +113,6 @@ int NPC::getDialogNb() {
 }
 void NPC::setDialogNb(int inDialogNb) {
     dialogNb = inDialogNb;
-    cout << endl << "setdialognb: dialogNb set to" << inDialogNb << endl << "=> dialogNb =" << dialogNb << endl;
 }
 
 /** CREATE FUNCTIONS --TEST**/
@@ -131,18 +138,5 @@ Player createPlayer(string name, string description, int hp, int mp, int money) 
 
     return player;
 }
-
-//create enemy test
-Enemy createMob(string name, string description, int hp, int mp, int spawnRate) {
-    Enemy mob;
-    mob.setName(name);
-    mob.setDescription(description);
-    mob.setHP(hp);
-    mob.setMP(mp);
-    mob.setSpawnRate(spawnRate);
-    return mob;
-}
-
-//create npc test
 
 

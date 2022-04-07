@@ -147,6 +147,9 @@ void MainWindow::on_pushButton_12_clicked()
         }
         else {
             game.currentRoom->getNPC()->coutDialog(0);
+            cout << game.currentRoom->getNPC()->GetName()
+                 << " has nothing else to say to you..."
+                 << endl;
         }
     }
     else {

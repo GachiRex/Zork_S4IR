@@ -127,7 +127,7 @@ bool Room::getNPCpresence() {
     return isNPCpresent;
 }
 
-Enemy Room::getMob() {
+Enemy* Room::getMob() {
     return MobInRoom;
 }
 
