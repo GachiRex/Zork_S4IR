@@ -85,6 +85,8 @@ private slots:
 
     void Go(std::string dst);
 
+    void Wordle();
+
     void on_pushButton_6_clicked();
 
     void on_pushButton_8_clicked();
@@ -112,6 +114,8 @@ private slots:
     void on_bullyButton_clicked();
 
     void on_interactButton_clicked();
+
+    void on_hpBar_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

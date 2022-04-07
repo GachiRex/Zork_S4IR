@@ -33,6 +33,7 @@ public:
 	string go(string direction);
 //Custom functions
     void tele(Command command);
+    vector<string> ReadWordleData(string path);
     void wordle();
 };
 

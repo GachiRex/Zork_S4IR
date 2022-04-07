@@ -197,13 +197,22 @@ void Room::Interact(Player *player, Room *room) {
         cout << endl
              << "You picked up a " << room->getItem(room)->getName()
              << endl;
+        if ( room->getItem(room)->getArmorCheck() ) {
+            player->setMP( player->getMP() + 5);
+        }
         room->delItem(room);
     }
     else if ( room->get_isNorthLocked() ) {
-        if ( player->getKeyNb() ) {
+        if ( ((room->description == "a") && (player->getKeyNb() == 1)) ||
+             ((room->description == "f") && (player->getKeyNb() == 2)) ) {
             room->set_isNorthLocked(0);
             cout << endl
                  << "You unlocked the door..."
+                 <<endl ;
+        }
+        else {
+            cout << endl
+                 << "You don't have the required key..."
                  <<endl ;
         }
     }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <algorithm> //for find
+#include <fstream>
 
 using namespace std;
 #include "ZorkUL.h"
@@ -16,7 +17,7 @@ ZorkUL::ZorkUL() {
     createRooms();
 }
 
-void ZorkUL::createNpcs() {
+/*void ZorkUL::createNpcs() {
     NPC *Maxime, *Cindy;
     string longIntro;
 
@@ -31,38 +32,43 @@ void ZorkUL::createNpcs() {
     Cindy = new NPC("Cindy l'Abrogée", "A strange little lady");
     Cindy->addDialog("Ayaaa ISSOU!");
     Cindy->addDialog("Lionel ce fou...");
-}
+}*/
 
 void ZorkUL::createRooms()  {
     /** Create the player **/
     Player *player;
     player = new Player("Player","The 'hero'");
-    player->invAddItem(new Item("Gros caillou","Un gros caillou"));
+    player->invAddItem(new Item("SPE Card","It's your SPE card. It's too worn out to be usable."));
     zorkPlayer = player;
 
     /** Creating the NPCs for the Rooms **/
     NPC *Maxime, *Cindy, *Lionel;
-    string longIntro;
+    string longDialog;
 
     Maxime = new NPC("Maxime Ouais-Sinon", "An obnoxious looking lady");
     Maxime->addDialog("Shoo! Shoo, sheeple!");
-    longIntro += "Mine brother. Thee were did summon by Herr Prosious himself. Thee shalt findeth Prosious in the most northern room. ";
-    longIntro += "However, thee shalt findeth two keys before meeting that gent. One to unlock this northern gate, another for the northern gate behind this northern gate. ";
-    longIntro += "Now, begone and findeth the first key, maggot!\n";
-    Maxime->addDialog(longIntro);
-    longIntro.clear();
+    longDialog += "Mine brother. Thee were did summon by Herr Prosious himself. Thee shalt findeth Prosious in the most northern room. ";
+    longDialog += "However, thee shalt findeth two keys before meeting that gent. One to unlock this northern gate, another for the northern gate behind this northern gate. ";
+    longDialog += "Now, begone and findeth the first key, maggot!\n";
+    Maxime->addDialog(longDialog);
+    longDialog.clear();
 
     Cindy = new NPC("Cindy l'Abrogée", "A strange little lady");
     Cindy->addDialog("... *she is staring at a blank screen*");
-    longIntro += "You want to open the the Room A's north door? You should ask a SUP student to open it for you. ";
-    longIntro += "I think there's one in J. OR was it in L? Wait, I'm just gonna look it up for you. Just wait.\n" ;
-    Cindy->addDialog(longIntro);
-    longIntro.clear();
+    longDialog += "You want to open the the Room A's north door? You should ask a SUP student to open it for you. ";
+    longDialog += "I think there's one in J. OR was it in L? Wait, I'm just gonna look it up for you. Just wait.\n" ;
+    Cindy->addDialog(longDialog);
+    longDialog.clear();
 
-    Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy", 0);
-    longIntro += "Ach, hello\n";
-    Lionel->addDialog(longIntro);
-    longIntro.clear();
+    Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy");
+    longDialog += "Ach liebe Gott! How did you beat me?! This humiliation will not got unpunished! ";
+    longDialog += "I shall isolate myself in this office and watch AKB48 now! Woe, woe upon you!";
+    Lionel->addDialog(longDialog);
+    longDialog.clear();
+    longDialog += "Ach, hello there. I summoned you about your MiMos. Can you explain to me why, at the end of June, you have only logged 30 minutes on Ionis? And 2 minutes on Projet Voltaire? ";
+    longDialog += "Are you kidding me? LOL. I can cancel your prépa at any time. But as an infinitely good and merciful being, I'm willing to pass you on if you solve my Mordle. ";
+    longDialog += "It's a worlde-like thing I coded during your OCR.";
+    Lionel->addDialog(longDialog);
 
     /** Creating Enemies **/
     Enemy *ISG, *SUP;
@@ -78,12 +84,12 @@ void ZorkUL::createRooms()  {
         b->addNPC(Cindy,b);
     c = new Room("c");
         c->addItem(new Item("Nerdy shirt","A shirt with the ACDC logo on it. Intimidating enough...", 1));
-
 	d = new Room("d");
 	e = new Room("e");
     f = new Room("f",1);
     g = new Room("g");
 	h = new Room("h");
+        h->addItem(new Item("Lionel's keycard","It isn't a key card. I think it's Nicolas' pokémon card. It reads 'Dracaufeu SV107'...",0,1));
 	i = new Room("i");
 	j = new Room("j");
         j->addMob(ISG,j);
@@ -237,6 +243,27 @@ void ZorkUL::wordle() {
     else {
         cout << endl << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl<<endl;
     }
+}
+
+vector<string> ZorkUL::ReadWordleData(string path){
+    ifstream src(path);
+    vector<string> Dico;
+
+    if (!src)
+    {
+      cerr << "[ZorkUL::ReadWordleData] Incorrect path. The worlde game will not function." << endl;
+      exit(1);
+    }
+    string word;
+    while(src >> word)
+    {
+      // TO DO remove unwanted characters from word
+      cout << word << endl;  //Just for testing
+      Dico.push_back(word);
+    }
+
+    system("pause");
+    return Dico;
 }
 
 /**
