@@ -33,6 +33,7 @@ private:
     int keyNb;
 public:
     Player(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0, int keyNb = 0);
+    Player(string name);
     void invAddItem(Item *item);
     void checkInventory();
     void buyItem(Item *item);
@@ -48,6 +49,7 @@ private:
     bool isLionel;
 public:
     NPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1, bool LionelFlag = 0);
+    NPC(string name);
     void addDialog(string dialog);
     void coutDialog(int dialogNb);
     int getDialogNb();
@@ -61,6 +63,7 @@ private:
     Item *drop;
 public:
     Enemy(string name, string description, int hp, int mp, Item *dropint, int spawnRate = 1);
+    Enemy(string name);
     void setSpawnRate(float inSpwnRate);
     float getSpawnRate();
     void setDrop(Item *inDrop);

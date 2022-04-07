@@ -160,7 +160,7 @@ void MainWindow::on_pushButton_3_clicked()
 //Go West Button
 void MainWindow::on_pushButton_4_clicked()
 {
-    finScreen();//Go("west");
+    Go("west");
 }
 
 //Go North button

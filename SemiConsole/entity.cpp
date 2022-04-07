@@ -100,6 +100,15 @@ Enemy::Enemy(string name, string description, int hp, int mp, Item *drop, int sp
     this->setDrop(drop);
 }
 
+Enemy::Enemy(string name) {
+    this->setName(name);
+    this->setDescription("[PH]");
+    this->setHP(1);
+    this->setMP(1);
+    this->setSpawnRate(1);
+    this->setDrop(new Item("PH","PH"));
+}
+
 void Enemy::setSpawnRate (float inSpwnRate) {
     (inSpwnRate < 0 || inSpwnRate > 1) ? spwnRate = 0 : spwnRate = inSpwnRate;
 }
