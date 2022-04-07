@@ -1,16 +1,15 @@
-#ifndef COMMAND_H_
+/*#ifndef COMMAND_H_
 #define COMMAND_H_
 
 #include <string>
 using namespace std;
 
 class Command {
-//private:
-public:
+private:
 	string commandWord;
 	string secondWord;
 
-//public:
+public:
 	Command(string firstWord, string secondWord);
 	string getCommandWord();
 	string getSecondWord();
@@ -18,4 +17,5 @@ public:
 	bool hasSecondWord();
 };
 
-#endif /*COMMAND_H_*/
+#endif COMMAND_H_
+*/

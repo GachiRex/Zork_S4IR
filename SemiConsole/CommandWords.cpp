@@ -1,10 +1,8 @@
-#include "CommandWords.h"
+/*#include "CommandWords.h"
 
 vector<string> CommandWords::validCommands;
 
-/**
- * Constructor - initialise the command words.
- */
+
 CommandWords::CommandWords() {
 	// Populate the vector if we haven't already.
 	if (validCommands.empty()) {
@@ -20,10 +18,7 @@ CommandWords::CommandWords() {
     }
 }
 
-/**
- * Check whether a given String is a valid command word.
- * Return true if it is, false if it isn't.
- **/
+/
 bool CommandWords::isCommand(string aString) {
 	for (unsigned int i = 0; i < validCommands.size(); i++)
 	{
@@ -34,9 +29,6 @@ bool CommandWords::isCommand(string aString) {
 	return false;
 }
 
-/*
- * Print all valid commands to System.out.
- */
 void CommandWords::showAll() {
 	//Loops through validCommands and prints each to the screen.
 	for (unsigned int i = 0; i < validCommands.size(); i++)
@@ -45,3 +37,4 @@ void CommandWords::showAll() {
 	}
 	cout << endl;
 }
+*/

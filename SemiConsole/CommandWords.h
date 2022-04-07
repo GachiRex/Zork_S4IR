@@ -1,4 +1,4 @@
-#ifndef COMMANDWORDS_H_
+/*#ifndef COMMANDWORDS_H_
 #define COMMANDWORDS_H_
 
 #include <iostream>
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif /*COMMANDWORDS_H_*/
+#endif COMMANDWORDS_H_*/

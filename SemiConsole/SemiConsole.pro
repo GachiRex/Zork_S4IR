@@ -16,10 +16,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Character.cpp \
-    Command.cpp \
-    CommandWords.cpp \
-    Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
     entity.cpp \
@@ -28,10 +24,6 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    Character.h \
-    Command.h \
-    CommandWords.h \
-    Parser.h \
     Room.h \
     ZorkUL.h \
     entity.h \

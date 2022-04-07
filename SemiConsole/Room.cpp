@@ -1,7 +1,6 @@
 #include "Room.h"
 #include "Command.h"
 
-
 Room::Room(string description, bool isNorthLocked) {
 	this->description = description;
     this->isNorthLocked = isNorthLocked;

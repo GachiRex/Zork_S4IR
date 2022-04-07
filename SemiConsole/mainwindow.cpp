@@ -176,12 +176,6 @@ void MainWindow::on_pushButton_5_clicked()
     }
 }
 
-//Help display button
-void MainWindow::on_pushButton_6_clicked()
-{
-    game.printHelp();
-}
-
 //Random Teleportation button
 void MainWindow::on_pushButton_7_clicked()
 {
@@ -195,7 +189,7 @@ void MainWindow::on_pushButton_7_clicked()
 
 //Wordle button
 void MainWindow::on_pushButton_8_clicked() {
-    game.wordle();
+    Wordle();
 }
 
 //Map display button

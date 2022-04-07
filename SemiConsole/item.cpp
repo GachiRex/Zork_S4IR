@@ -59,6 +59,3 @@ string Item::getLongDescription()
 {
 	return " item(s), " + description + ".\n";
 }
-
-
-
