@@ -1,6 +1,14 @@
 #ifndef ZORKUL_H_
 #define ZORKUL_H_
 
+#include <iostream>
+#include <string>
+
+#include <QFile>
+#include <QStringList>
+#include <QCoreApplication>
+#include <QTextStream>
+
 #include "Command.h"
 #include "Parser.h"
 #include "Room.h"
@@ -8,8 +16,8 @@
 
 #include "entity.h"
 
-#include <iostream>
-#include <string>
+
+
 using namespace std;
 
 class ZorkUL {
@@ -33,7 +41,7 @@ public:
 	string go(string direction);
 //Custom functions
     void tele(Command command);
-    vector<string> ReadWordleData(string path);
+    QStringList ReadWordleData();
     void wordle();
 };
 

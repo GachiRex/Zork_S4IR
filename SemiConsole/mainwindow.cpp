@@ -1,4 +1,9 @@
 #include <iostream>
+#include <QFile>
+#include <QStringList>
+#include <QCoreApplication>
+#include <QTextStream>
+
 using namespace std;
 
 #include "mainwindow.h"
@@ -7,6 +12,7 @@ using namespace std;
 #include "Command.h"
 #include "CommandWords.h"
 #include "ZorkUL.h"
+
 
 ZorkUL game;
 
@@ -53,7 +59,7 @@ void MainWindow::on_lineEdit_returnPressed()
 
 void MainWindow::Wordle() {
     string wordList[15] = {"pearl", "sewed", "moist", "croze","crane",
-                          "bread", "short", "blunt", "flock", "greek",
+                          "bread", "short", "blunt", "flock", "sneed",
                           "candy", "worry", "towel", "short", "stock"
                          };
 
@@ -68,33 +74,28 @@ void MainWindow::Wordle() {
 
     while (remAttempts > 0 && solved < 5) {
         cout << endl << "Remaining attempts: " <<  remAttempts << endl << remLetters << endl << display << endl << "Your guess: ";
-        cin >> guess;
-        string incorrectLetters = "";
 
+        //--connect signal, function should wait for user input (in ui->lineedit)
+        cin >> guess;
+
+        string incorrectLetters = "";
         if (guess.length() < 6) {
             solved = 0;
             int i = 0;
             while (i < 5 && solved < 5) {
                 string correctLetter = "";
-
                 if (ranWord.find(guess[i]) != string::npos) {             //'string::npos' represents a non-position
                     correctLetter += guess[i];
-
                     if (guess[i] == ranWord[i]) {
                         remLetters.at((guess[i] - 96) * 2 - 1) = '_';    //'-96' because 'a'=97, '*2' because letters are separated by a space
-
                         unsigned long j = 0;
                         while (j < guess.length()) {
-                            if (guess[i]==ranWord[j]) {
-                                display[j] = guess[i];
-                            }
+                            if (guess[i]==ranWord[j]) { display[j] = guess[i]; }
                             j++;
                         }
                         solved++;
                     }
-                    else {
-                        cout << "The letter " << correctLetter << " is correct, but in the wrong spot" << endl;
-                    }
+                    else { cout << "The letter " << correctLetter << " is correct, but in the wrong spot" << endl; }
                 }
                 else {
                     if ( (guess[i] >= 'a' && guess[i] <= 'z') || (guess[i] >= 'A' && guess[i] <= 'Z')) {
@@ -104,25 +105,15 @@ void MainWindow::Wordle() {
                         remLetters.at((guess[i] - 96) * 2 - 1) = '_';
                     }
                 }
-
                 i++;
             }
-            if (incorrectLetters != "") {
-                cout << "Incorrect letters:" << incorrectLetters << " " << endl;
-            }
+            if (incorrectLetters != "") { cout << "Incorrect letters:" << incorrectLetters << " " << endl; }
             remAttempts--;
         }
-        else {
-            cout << "Your guess must be a word of 5 letters" << endl;
-        }
+        else { cout << "Your guess must be a word of 5 letters" << endl; }
     }
-
-    if (solved == 5) {
-        cout << endl << "You found the correct word!" << endl<<endl;
-    }
-    else {
-        cout << endl << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl<<endl;
-    }
+    if (solved == 5) { cout << endl << "You found the correct word!" << endl<<endl; }
+    else { cout << endl << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl<<endl; }
 }
 
 /** Button functions **/
@@ -199,10 +190,7 @@ void MainWindow::on_pushButton_7_clicked()
 
 //Wordle button
 void MainWindow::on_pushButton_8_clicked() {
-    vector<string> data = game.ReadWordleData("dictionary.txt");
-    cout << endl
-         << "First word read: [" << data[0] << "]"
-         << endl;
+    game.wordle();
 }
 
 //Map display button
@@ -226,7 +214,6 @@ void MainWindow::on_pushButton_9_clicked()
 void MainWindow::on_pushButton_10_clicked(){
     game.zorkPlayer->CheckStats();
 }
-//p
 
 //Check Player's Inventory button
 void MainWindow::on_pushButton_11_clicked()

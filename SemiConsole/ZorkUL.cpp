@@ -3,6 +3,12 @@
 #include <algorithm> //for find
 #include <fstream>
 
+#include <QFile>
+#include <QStringList>
+#include <QCoreApplication>
+#include <QTextStream>
+
+
 using namespace std;
 #include "ZorkUL.h"
 #include "characters.h"
@@ -173,7 +179,7 @@ void ZorkUL::printHelp() {
 }
 void ZorkUL::wordle() {
     string wordList[15] = {"pearl", "sewed", "moist", "croze","crane",
-                          "bread", "short", "blunt", "flock", "greek",
+                          "bread", "short", "blunt", "flock", "sneed",
                           "candy", "worry", "towel", "short", "stock"
                          };
 
@@ -188,33 +194,28 @@ void ZorkUL::wordle() {
 
     while (remAttempts > 0 && solved < 5) {
         cout << endl << "Remaining attempts: " <<  remAttempts << endl << remLetters << endl << display << endl << "Your guess: ";
-        cin >> guess;
-        string incorrectLetters = "";
 
+        //--connect signal, function should wait for user input (in ui->lineedit)
+        cin >> guess;
+
+        string incorrectLetters = "";
         if (guess.length() < 6) {
             solved = 0;
             int i = 0;
             while (i < 5 && solved < 5) {
                 string correctLetter = "";
-
                 if (ranWord.find(guess[i]) != string::npos) {             //'string::npos' represents a non-position
                     correctLetter += guess[i];
-
                     if (guess[i] == ranWord[i]) {
                         remLetters.at((guess[i] - 96) * 2 - 1) = '_';    //'-96' because 'a'=97, '*2' because letters are separated by a space
-
                         unsigned long j = 0;
                         while (j < guess.length()) {
-                            if (guess[i]==ranWord[j]) {
-                                display[j] = guess[i];
-                            }
+                            if (guess[i]==ranWord[j]) { display[j] = guess[i]; }
                             j++;
                         }
                         solved++;
                     }
-                    else {
-                        cout << "The letter " << correctLetter << " is correct, but in the wrong spot" << endl;
-                    }
+                    else { cout << "The letter " << correctLetter << " is correct, but in the wrong spot" << endl; }
                 }
                 else {
                     if ( (guess[i] >= 'a' && guess[i] <= 'z') || (guess[i] >= 'A' && guess[i] <= 'Z')) {
@@ -224,46 +225,28 @@ void ZorkUL::wordle() {
                         remLetters.at((guess[i] - 96) * 2 - 1) = '_';
                     }
                 }
-
                 i++;
             }
-            if (incorrectLetters != "") {
-                cout << "Incorrect letters:" << incorrectLetters << " " << endl;
-            }
+            if (incorrectLetters != "") { cout << "Incorrect letters:" << incorrectLetters << " " << endl; }
             remAttempts--;
         }
-        else {
-            cout << "Your guess must be a word of 5 letters" << endl;
-        }
+        else { cout << "Your guess must be a word of 5 letters" << endl; }
     }
-
-    if (solved == 5) {
-        cout << endl << "You found the correct word!" << endl<<endl;
-    }
-    else {
-        cout << endl << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl<<endl;
-    }
+    if (solved == 5) { cout << endl << "You found the correct word!" << endl<<endl; }
+    else { cout << endl << "You ran out of attempts!" << endl << "The word was: " << ranWord << endl<<endl; }
 }
 
-vector<string> ZorkUL::ReadWordleData(string path){
-    ifstream src(path);
-    vector<string> Dico;
+QStringList ZorkUL::ReadWordleData(){
+    qDebug() << "App path : " << qApp->applicationDirPath();
 
-    if (!src)
-    {
-      cerr << "[ZorkUL::ReadWordleData] Incorrect path. The worlde game will not function." << endl;
-      exit(1);
-    }
-    string word;
-    while(src >> word)
-    {
-      // TO DO remove unwanted characters from word
-      cout << word << endl;  //Just for testing
-      Dico.push_back(word);
-    }
+    QFile ifile("dictionary.txt");
+    ifile.open(QIODevice::ReadOnly | QIODevice::Text);
+    // read whole content
+    QString content = ifile.readAll();
+    // extract words
+    QStringList list = content.split(" ");
 
-    system("pause");
-    return Dico;
+    return list;
 }
 
 /**
