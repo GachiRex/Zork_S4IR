@@ -11,7 +11,6 @@
 using namespace std;
 
 #include "ZorkUL.h"
-#include "characters.h"
 
 ZorkUL::ZorkUL() {
     createRooms();
@@ -44,7 +43,6 @@ void ZorkUL::createRooms()  {
     Cindy->addDialog(longDialog);
     longDialog.clear();
 
-    //Lionele = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy",1,999,999);
     Brosius = new Lionel("Herr Lionel Prosious","A weird yet intimidating looking guy");
     longDialog += "Ach liebe Gott! This humiliation will not got unpunished! ";
     longDialog += "I shall isolate myself in this office and watch AKB48 now! Woe, woe upon you! ";
