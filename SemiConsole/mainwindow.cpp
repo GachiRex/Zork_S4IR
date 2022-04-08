@@ -14,8 +14,6 @@ using namespace std;
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "Command.h"
-#include "CommandWords.h"
 #include "ZorkUL.h"
 
 ZorkUL game;

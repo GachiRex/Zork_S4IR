@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1303</width>
+    <width>805</width>
     <height>688</height>
    </rect>
   </property>
@@ -147,7 +147,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>630</x>
       <y>40</y>
       <width>161</width>
       <height>41</height>
@@ -166,7 +166,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>630</x>
       <y>90</y>
       <width>161</width>
       <height>41</height>
@@ -308,7 +308,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>630</x>
       <y>140</y>
       <width>161</width>
       <height>41</height>
@@ -327,7 +327,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>630</x>
       <y>190</y>
       <width>161</width>
       <height>41</height>
@@ -343,7 +343,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="debugger">
     <property name="geometry">
      <rect>
-      <x>1219</x>
+      <x>719</x>
       <y>10</y>
       <width>71</width>
       <height>24</height>
@@ -356,7 +356,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="closeDebugger">
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>630</x>
       <y>10</y>
       <width>80</width>
       <height>24</height>
@@ -408,7 +408,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1303</width>
+     <width>805</width>
      <height>21</height>
     </rect>
    </property>
