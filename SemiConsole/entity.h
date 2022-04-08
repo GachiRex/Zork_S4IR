@@ -16,7 +16,7 @@ protected:
     int hp;
     int mp;
 public:
-    void CheckStats();
+    virtual void CheckStats();
     void setHP(int inHP);
     void setMP (int inMP);
     string GetName();
@@ -37,6 +37,7 @@ public:
     { this->name=name ; this->description = description; this->hp = hp; this->mp = mp; }
     Player(string name);
     ~Player() = default;
+    void CheckStats();
     void invAddItem(Item *item);
     void checkInventory();
     int getKeyNb();
@@ -84,6 +85,7 @@ public:
     bool bigboss = true;
     Lionel(string name, string description);
     ~Lionel() = default;
+    void CheckStats();
 };
 
 #endif // ENTITY_H

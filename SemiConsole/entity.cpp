@@ -1,6 +1,5 @@
 #include "entity.h"
-
-/** ENTITY FUNCTIONS **/
+/** CheckStats **/
 
 void Entity::CheckStats(){
     cout << endl
@@ -10,6 +9,17 @@ void Entity::CheckStats(){
          << "MP: " << mp << endl
          << endl;
 }
+
+void Player::CheckStats(){
+    cout << endl
+         << "My name: " << name << endl
+         << "Description: " << description << endl
+         << "My HP: " << hp << endl
+         << "My MP: " << mp << endl
+         << endl;
+}
+
+/** ENTITY FUNCTIONS **/
 
 void Entity::setName(string inName) {
     name = inName;
@@ -154,3 +164,9 @@ void NPC::setDialogNb(int inDialogNb) {
 /** Lionel Function **/
 
 Lionel::Lionel(string name, string description) : NPC(name, description), Enemy(name) {}
+
+void Lionel::CheckStats() {
+    cout << endl
+         << "You're too scared to even look up. Herr Lionel is too intimidating..."
+         << endl;
+}

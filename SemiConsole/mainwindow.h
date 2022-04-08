@@ -124,6 +124,8 @@ private slots:
 
     void on_ender_clicked();
 
+    void on_checkEntity_clicked();
+
 private:
     Ui::MainWindow *ui;
     QDebugStream *redirect;

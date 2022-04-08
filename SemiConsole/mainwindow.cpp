@@ -151,13 +151,16 @@ inline void MainWindow::Go(string dst) {
     if (game.currentRoom->getLIONELpresence()) {
         ui->bullyButton->setEnabled(true);
         ui->pushButton_12->setEnabled(true);
+        ui->checkEntity->setEnabled(true);
     }
     else {
         ui->bullyButton->setEnabled(false);
         ui->pushButton_12->setEnabled(false);
+        ui->checkEntity->setEnabled(false);
 
         (game.currentRoom->getMobPresence()) ? ui->bullyButton->setEnabled(true) : ui->bullyButton->setEnabled(false);
         (game.currentRoom->getNPCpresence()) ? ui->pushButton_12->setEnabled(true) : ui->pushButton_12->setEnabled(false);
+        (game.currentRoom->getMobPresence() || game.currentRoom->getNPCpresence()) ? ui->checkEntity->setEnabled(true) : ui->checkEntity->setEnabled(false);
         (game.currentRoom->numberOfItems() || game.currentRoom->get_isNorthLocked()) ? ui->interactButton->setEnabled(true) : ui->interactButton->setEnabled(false);
     }
 
@@ -379,5 +382,22 @@ void MainWindow::on_closeDebugger_clicked()
 void MainWindow::on_ender_clicked()
 {
     finScreen();
+}
+
+
+void MainWindow::on_checkEntity_clicked()
+{
+    if(game.currentRoom->getMobPresence()) {
+        game.currentRoom->getMob()->CheckStats();
+    }
+    else if (game.currentRoom->getNPCpresence()) {
+        game.currentRoom->getNPC()->CheckStats();
+    }
+    else if (game.currentRoom->getLIONELpresence()) {
+        game.currentRoom->getLionel()->CheckStats();
+    }
+    else {
+        cout << "Nothing to check here..." << endl;
+    }
 }
 
