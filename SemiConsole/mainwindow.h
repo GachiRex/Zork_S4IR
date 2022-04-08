@@ -116,6 +116,14 @@ private slots:
     void on_interactButton_clicked();
 
     void ender();
+    void on_pushButton_6_clicked();
+
+    void on_debugger_clicked();
+
+    void on_closeDebugger_clicked();
+
+    void on_ender_clicked();
+
 private:
     Ui::MainWindow *ui;
     QDebugStream *redirect;

@@ -21,17 +21,14 @@ private:
     void createRooms();
     void createItems();
     void displayItems();
-    void createNpcs();
 public:
     ZorkUL();
     Player *zorkPlayer;
     Room *currentRoom;
     map<string, Room*> roomList;
-	void play();
     void printWelcome();
 	string go(string direction);
-    friend QStringList ReadWordleData();
-    void wordle();
+    QStringList ReadWordleData();
 };
 
 #endif /*ZORKUL_H_*/

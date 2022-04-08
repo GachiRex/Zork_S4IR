@@ -40,7 +40,7 @@ int Entity::getMP() {
 
 /** PLAYER FUNCTIONS **/
 
-Player::Player(string name, string description, int hp, int mp, int money, int keyNb) {
+/*Player::Player(string name, string description, int hp, int mp, int money, int keyNb) {
     this->setName(name);
     this->setDescription(description);
 
@@ -49,7 +49,7 @@ Player::Player(string name, string description, int hp, int mp, int money, int k
     this->setMoney(money);
 
     this->setKeyNb(keyNb);
-};
+};*/
 
 void Player::invAddItem(Item *item) {
     Inventory.push_back(*item);
@@ -66,7 +66,7 @@ void Player::checkInventory() {
             cout << endl << i + 1 << ". "
                  << "Item name: " << Inventory[i].getName() << endl
                  << "Item description: " << Inventory[i].getShortDescription() << endl
-                 << "Armor? " << ((Inventory[i].getArmorCheck()) ? "Yes, +5 Intimidation" : "No") << endl
+                 << "Armor? " << ((Inventory[i].getArmorCheck()) ? "Yes, +50% Intimidation" : "No") << endl
                  << "Key? " << ((Inventory[i].getKeyCheck()) ? "Yes" : "No") << endl
                  << endl;
     }
@@ -91,15 +91,6 @@ void Player::setKeyNb(int nb) {
 
 /** ENEMY FUNCTIONS **/
 
-Enemy::Enemy(string name, string description, int hp, int mp, Item *drop, int spawnRate) {
-    this->setName(name);
-    this->setDescription(description);
-    this->setHP(hp);
-    this->setMP(mp);
-    this->setSpawnRate(spawnRate);
-    this->setDrop(drop);
-}
-
 Enemy::Enemy(string name) {
     this->setName(name);
     this->setDescription("[PH]");
@@ -108,6 +99,15 @@ Enemy::Enemy(string name) {
     this->setSpawnRate(1);
     this->setDrop(new Item("PH","PH"));
 }
+
+Enemy::Enemy(const Enemy &e1)
+{
+    name = e1.name;
+    description = e1.description;
+    hp = e1.hp;
+    mp = e1.mp;
+    setDrop(e1.drop);
+};
 
 void Enemy::setSpawnRate (float inSpwnRate) {
     (inSpwnRate < 0 || inSpwnRate > 1) ? spwnRate = 0 : spwnRate = inSpwnRate;
@@ -126,16 +126,6 @@ Item* Enemy::getDrop() {
 };
 
 /** NPC FUNCTIONS **/
-
-NPC::NPC(string name, string description, int dialogNb, int hp, int mp, bool lionelCheck) {
-    this->setName(name);
-    this->setDescription(description);
-
-    this->setDialogNb(dialogNb);
-    this->setHP(hp);
-    this->setMP(mp);
-    this->isLionel = lionelCheck;
-}
 
 void NPC::addDialog(string dialog) {
     if (dialogList.size() < 10) {
@@ -161,7 +151,6 @@ void NPC::setDialogNb(int inDialogNb) {
     dialogNb = inDialogNb;
 }
 
-bool NPC::getLionel() {
-    return isLionel;
-}
+/** Lionel Function **/
 
+Lionel::Lionel(string name, string description) : NPC(name, description), Enemy(name) {}

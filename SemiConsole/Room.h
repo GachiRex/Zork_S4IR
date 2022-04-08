@@ -18,15 +18,17 @@ private:
     vector <Item> itemsInRoom;
     NPC* NPCinRoom;
     Enemy* MobInRoom;
-    bool isNorthLocked;
-    bool isNPCpresent;
-    bool isMobPresent;
+    Lionel* LionelInRoom;
+    bool isNorthLocked : 1;
+    bool isNPCpresent : 1;
+    bool isMobPresent : 1;
+    bool isLionelPresent : 1;
 
 public:
     /** Description **/
     int numberOfItems();
     Room(string description, bool isNorthLocked = 0);
-	void setExits(Room *north, Room *east, Room *south, Room *west);
+    void setExits(Room *north, Room *east, Room *south, Room *west);
     bool get_isNorthLocked();
     void set_isNorthLocked(bool flag);
 	string shortDescription();
@@ -48,6 +50,10 @@ public:
     void setMobPresence(bool flag);
     bool getMobPresence();
     Enemy* getMob();
+    void addLionel(Lionel *inLionel, Room *room);
+    void setLIONELpresence(bool flag);
+    bool getLIONELpresence();
+    Lionel* getLionel();
     /** Room interaction **/
     void Bully(Player *player, Room *room);
     void Interact(Player *player, Room *room);

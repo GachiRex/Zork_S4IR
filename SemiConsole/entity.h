@@ -5,10 +5,12 @@
 #include <string>
 #include <list>
 #include <vector>
+#include <QString>
+
 #include "item.h"
 
 class Entity {
-private:
+protected:
     string name;
     string description;
     int hp;
@@ -19,11 +21,10 @@ public:
     void setMP (int inMP);
     string GetName();
     string GetDescription();
-    int getHP();
-    int getMP();
-protected:
     void setName(string inName);
     void setDescription(string inDesc);
+    int getHP();
+    int getMP();
 };
 
 class Player : public Entity {
@@ -32,13 +33,15 @@ private:
     vector <Item> Inventory;
     int keyNb;
 public:
-    Player(string name, string description = "Descr", int hp = 20, int mp = 10, int money = 0, int keyNb = 0);
+    Player(string name, string description = "Descr", int hp = 20, int mp = 10) : money(0), keyNb(0)
+    { this->name=name ; this->description = description; this->hp = hp; this->mp = mp; }
     Player(string name);
+    ~Player() = default;
     void invAddItem(Item *item);
     void checkInventory();
+    int getKeyNb();
     void buyItem(Item *item);
     void setMoney(int inMoney);
-    int getKeyNb();
     void setKeyNb(int nb);
 };
 
@@ -46,28 +49,41 @@ class NPC : public Entity {
 private:
     vector <string> dialogList;
     int dialogNb;
-    bool isLionel;
 public:
-    NPC(string name, string description = "An NPC", int dialogNb = 1, int hp = 1, int mp = 1, bool LionelFlag = 0);
+    NPC(string name, string description = "An NPC", int hp = 1, int mp = 1) : dialogNb(1)
+    { this->name=name ; this->description = description; this->hp = hp; this->mp = mp; }
     NPC(string name);
+    ~NPC() = default;
     void addDialog(string dialog);
     void coutDialog(int dialogNb);
     int getDialogNb();
     void setDialogNb(int inDialogNb);
-    bool getLionel();
+    void operator -- () {
+        --dialogNb;
+    }
 };
 
 class Enemy : public Entity {
-private:
+protected:
     int spwnRate;
     Item *drop;
+    void setDrop(Item *inDrop);
 public:
-    Enemy(string name, string description, int hp, int mp, Item *dropint, int spawnRate = 1);
+    Enemy(string name, string description, int hp, int mp, Item *dropint) : spwnRate(1)
+    { this->setName(name); this->setDescription(description); this->setHP(hp); this->setMP(mp); this->setDrop(dropint);}
     Enemy(string name);
+    Enemy(const Enemy &e1); //deep copy
+    ~Enemy() = default;
     void setSpawnRate(float inSpwnRate);
     float getSpawnRate();
-    void setDrop(Item *inDrop);
     Item* getDrop();
+};
+
+class Lionel : public NPC, public Enemy {
+public:
+    bool bigboss = true;
+    Lionel(string name, string description);
+    ~Lionel() = default;
 };
 
 #endif // ENTITY_H

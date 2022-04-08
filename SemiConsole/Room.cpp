@@ -1,5 +1,6 @@
 #include "Room.h"
 #include "Command.h"
+#define ARM_BUFF(param)(param * 1.5)
 
 Room::Room(string description, bool isNorthLocked) {
 	this->description = description;
@@ -39,7 +40,7 @@ string Room::exitString() {
     string returnString = "\nYou realize you can go..";
 	for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
 		// Loop through map
-        returnString += ", " + i->first;	// access the "first" element of the pair (direction as a string)
+        returnString += ", " + i->first;
     if (get_isNorthLocked()) {
         returnString += "\nThe northern dooor seems locked";
     }
@@ -51,15 +52,17 @@ string Room::exitString() {
         returnString += "\nYou notice someone dumb-looking in the room:";
         returnString += "\nIt's a " + getMob()->GetName() + ". " + getMob()->GetDescription() + "...";
     }
+    if (getLIONELpresence()) {
+        returnString += "\nYou notice someone dumb-looking in the room: It's Lionel!";
+    }
 	return returnString;
 }
 
 Room* Room::nextRoom(string direction) {
-	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
+    map<string, Room*>::iterator next = exits.find(direction);
 	if (next == exits.end())
-		return NULL; // if exits.end() was returned, there's no room in that direction.
-	return next->second; // If there is a room, remove the "second" (Room*)
-				// part of the "pair" (<string, Room*>) and return it.
+        return NULL;
+    return next->second;
 }
 
 /** Items **/
@@ -120,12 +123,31 @@ void Room::delItem(Room *room) {
     room->itemsInRoom.erase(room->itemsInRoom.begin());
 }
 
-/** NPC functions  **/
+/** Lionel functions  **/
+
+Lionel* Room::getLionel() {
+    return LionelInRoom;
+}
 
 void Room::addNPC(NPC *inNPC, Room *room) {
     room->NPCinRoom = inNPC;
     room->setNPCpresence(1);
 }
+
+void Room::addLionel(Lionel *inLionel, Room *room) {
+    room->LionelInRoom = inLionel;
+    room->setLIONELpresence(1);
+}
+
+void Room::setLIONELpresence(bool flag) {
+    isLionelPresent = flag;
+}
+
+bool Room::getLIONELpresence() {
+    return isLionelPresent;
+}
+
+/** NPC functions **/
 
 NPC* Room::getNPC() {
     return NPCinRoom;
@@ -181,6 +203,7 @@ void Room::Bully(Player *player, Room *room) {
                  << endl;
             player->invAddItem(room->getMob()->getDrop());
             room->addMob(room->getMob(), room, 1);
+            delete(room->getMob());
         }
         else {
             cout << endl
@@ -197,7 +220,8 @@ void Room::Interact(Player *player, Room *room) {
              << "You picked up a " << room->getItem(room)->getName()
              << endl;
         if ( room->getItem(room)->getArmorCheck() ) {
-            player->setMP( player->getMP() + 5);
+            player->setMP( ARM_BUFF(player->getMP()));
+
         }
         room->delItem(room);
     }

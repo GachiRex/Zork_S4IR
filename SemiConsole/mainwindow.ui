@@ -142,19 +142,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_7">
-    <property name="geometry">
-     <rect>
-      <x>1130</x>
-      <y>10</y>
-      <width>161</width>
-      <height>21</height>
-     </rect>
+    <property name="enabled">
+     <bool>true</bool>
     </property>
-    <property name="text">
-     <string>Random Tel.</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_8">
     <property name="geometry">
      <rect>
       <x>1130</x>
@@ -162,6 +152,28 @@
       <width>161</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="text">
+     <string>Random Tel.</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>90</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
     </property>
     <property name="text">
      <string>worlde</string>
@@ -290,6 +302,70 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;ITD:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>140</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="text">
+     <string>readWordleData</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ender">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>190</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="text">
+     <string>end</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="debugger">
+    <property name="geometry">
+     <rect>
+      <x>1219</x>
+      <y>10</y>
+      <width>71</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>debugger</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closeDebugger">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>10</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Close</string>
+    </property>
+   </widget>
    <zorder>textEdit</zorder>
    <zorder>lineEdit</zorder>
    <zorder>pushButton_2</zorder>
@@ -308,6 +384,10 @@ p, li { white-space: pre-wrap; }
    <zorder>textBrowser</zorder>
    <zorder>hpBar</zorder>
    <zorder>mpBar</zorder>
+   <zorder>pushButton_6</zorder>
+   <zorder>ender</zorder>
+   <zorder>debugger</zorder>
+   <zorder>closeDebugger</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

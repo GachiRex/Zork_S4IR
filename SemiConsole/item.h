@@ -14,8 +14,8 @@ private:
 	string longDescription;
 	int weightGrams;
 	float value;
-    bool armorCheck;
-    bool keyCheck;
+    bool armorCheck : 1;
+    bool keyCheck : 1;
 
 public:
     Item (string inName, string inDescription, bool armorCheck = 0, bool keyCheck = 0);

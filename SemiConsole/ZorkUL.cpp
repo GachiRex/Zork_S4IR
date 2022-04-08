@@ -8,8 +8,8 @@
 #include <QCoreApplication>
 #include <QTextStream>
 
-
 using namespace std;
+
 #include "ZorkUL.h"
 #include "characters.h"
 
@@ -25,7 +25,8 @@ void ZorkUL::createRooms()  {
     zorkPlayer = player;
 
     /** Creating the NPCs for the Rooms **/
-    NPC *Maxime, *Cindy, *Lionel;
+    NPC *Maxime, *Cindy;
+    Lionel *Brosius;
     string longDialog;
 
     Maxime = new NPC("Maxime Ouais-Sinon", "An obnoxious looking lady");
@@ -43,20 +44,22 @@ void ZorkUL::createRooms()  {
     Cindy->addDialog(longDialog);
     longDialog.clear();
 
-    Lionel = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy",1,999,999,1);
+    //Lionele = new NPC("Herr Lionel Prosious","A weird yet intimidating looking guy",1,999,999);
+    Brosius = new Lionel("Herr Lionel Prosious","A weird yet intimidating looking guy");
     longDialog += "Ach liebe Gott! This humiliation will not got unpunished! ";
     longDialog += "I shall isolate myself in this office and watch AKB48 now! Woe, woe upon you! ";
     longDialog += "Now be gone, wench!";
-    Lionel->addDialog(longDialog);
+    Brosius->addDialog(longDialog);
     longDialog.clear();
     longDialog += "Ach, hello there. I summoned you about your MiMos. Can you explain to me why, at the end of June, you have only logged 30 minutes on Ionis? And 2 minutes on Projet Voltaire? ";
     longDialog += "Are you kidding me? LOL.";
-    Lionel->addDialog(longDialog);
+    Brosius->addDialog(longDialog);
 
     /** Creating Enemies **/
-    Enemy *ISG, *SUP;
+    Enemy *ISG, *SUP, *ISG2;
     ISG = new Enemy("ISG student", "An hostile grocer", 21, 14, new Item("ISG Card","Useless. But pretty expensive."));
     SUP = new Enemy("SUP student", "A naive youngster", 19, 10, new Item("SUP Card","Could open A's door...", 0, 1));
+    ISG2 = new Enemy(*ISG);
 
     /** Creating Rooms **/
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m;
@@ -71,53 +74,52 @@ void ZorkUL::createRooms()  {
 	e = new Room("e");
     f = new Room("f",1);
     g = new Room("g");
+        g->addMob(ISG2,g);
 	h = new Room("h");
         h->addItem(new Item("Lionel's keycard","It isn't a key card. I think it's Nicolas' pokémon card. It reads 'Dracaufeu SV107'...",0,1));
 	i = new Room("i");
 	j = new Room("j");
         j->addMob(ISG,j);
-        //delete(ISG); ?
     k = new Room("k");
     l = new Room("l");
         l->addMob(SUP,l);
-        //delete(SUP); ?
     m = new Room("m");
-        m->addNPC(Lionel,m);
+        m->addLionel(Brosius,m);
 
     //Room list for tel
-    roomList = {{"a", a},
-                {"b", b},
-                {"c", c},
-                {"d", d},
-                {"e", e},
-                {"f", f},
-                {"g", g},
-                {"h", h},
-                {"i", i},
-                {"j", j},
-                {"k", k},
-                {"l", l},
-                {"m", m}};
+        roomList = {{"a", a},
+                    {"b", b},
+                    {"c", c},
+                    {"d", d},
+                    {"e", e},
+                    {"f", f},
+                    {"g", g},
+                    {"h", h},
+                    {"i", i},
+                    {"j", j},
+                    {"k", k},
+                    {"l", l},
+                    {"m", m}};
 
 
 //             (N, E, S, W)
-	a->setExits(f, b, d, c);
-    b->setExits(NULL, NULL, NULL, a);
-	c->setExits(NULL, a, NULL, NULL);
-	d->setExits(a, e, NULL, i);
-    e->setExits(NULL, NULL, l, d);
-	f->setExits(m, g, a, h);
-	g->setExits(NULL, NULL, NULL, f);
-	h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, j, NULL);
+        a->setExits(f, b, d, c);
+        b->setExits(NULL, NULL, NULL, a);
+        c->setExits(NULL, a, NULL, NULL);
+        d->setExits(a, e, NULL, i);
+        e->setExits(NULL, NULL, l, d);
+        f->setExits(m, g, a, h);
+        g->setExits(NULL, NULL, NULL, f);
+        h->setExits(NULL, f, NULL, NULL);
+        i->setExits(NULL, d, j, NULL);
 
-    j->setExits(i, k, NULL, NULL);
-    k->setExits(NULL, l, NULL, j);
-    l->setExits(e, NULL, NULL, k);
-    m->setExits(NULL, NULL, f, NULL);
+        j->setExits(i, k, NULL, NULL);
+        k->setExits(NULL, l, NULL, j);
+        l->setExits(e, NULL, NULL, k);
+        m->setExits(NULL, NULL, f, NULL);
 
 
-    currentRoom = a;
+        currentRoom = a;
 }
 
 void ZorkUL::printWelcome() {
@@ -127,13 +129,18 @@ void ZorkUL::printWelcome() {
 	cout << currentRoom->longDescription() << endl;
 }
 
-QStringList ReadWordleData(){
-    qDebug() << "App path : " << qApp->applicationDirPath();
-
+QStringList ZorkUL::ReadWordleData(){
     QFile ifile("dictionary.txt");
+    try{
+        if (!ifile.exists()) { throw 2; }
+    } catch(int x) {
+        qDebug() << "Error" << x << ": Path doesn't lead anywhere. Aborting Wordle...";
+        qDebug() << "Error happened in app path : " << qApp->applicationDirPath();
+        exit(0);
+    }
+
     ifile.open(QIODevice::ReadOnly | QIODevice::Text);
     QString content = ifile.readAll();
     QStringList list = content.split(" ");
-
     return list;
 }

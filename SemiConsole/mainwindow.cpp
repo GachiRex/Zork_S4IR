@@ -18,15 +18,27 @@ using namespace std;
 #include "CommandWords.h"
 #include "ZorkUL.h"
 
-
 ZorkUL game;
+union track{
+    int valInt;
+    float valFloat;
+} steps;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    try{
+        if (!game.zorkPlayer) { throw 1; }
+    } catch(int x) {
+        qDebug() << "Error" << x << ": Player does not exist. Aborting game";
+        exit(1);
+    }
+
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
+
+    on_closeDebugger_clicked();             //Hides debug buttons
 
     ui->hpBar->setMinimum(0);
     ui->hpBar->setMaximum(game.zorkPlayer->getHP());
@@ -64,9 +76,9 @@ void MainWindow::on_lineEdit_returnPressed()
 
 void MainWindow::Wordle() {
     string wordList[15] = {"pearl", "sewed", "moist", "croze","crane",
-                          "bread", "short", "blunt", "flock", "sneed",
-                          "candy", "worry", "towel", "short", "stock"
-                         };
+                           "bread", "short", "blunt", "flock", "sneed",
+                           "candy", "worry", "towel", "short", "stock"
+                          };
 
     string display = "_____";
     string remLetters = " a b c d e f g h i j k l m n o p q r s t u v w x y z";
@@ -124,6 +136,8 @@ void MainWindow::Wordle() {
 /** Button functions **/
 
 inline void MainWindow::Go(string dst) {
+    steps.valInt++;
+
     Room* nextRoom = game.currentRoom->nextRoom(dst);
     if (nextRoom == NULL) {
         cout << endl
@@ -133,10 +147,24 @@ inline void MainWindow::Go(string dst) {
     else {
         game.currentRoom = nextRoom;
      }
-    (game.currentRoom->getMobPresence()) ? ui->bullyButton->setEnabled(true) : ui->bullyButton->setEnabled(false);
-    (game.currentRoom->getNPCpresence()) ? ui->pushButton_12->setEnabled(true) : ui->pushButton_12->setEnabled(false);
-    (game.currentRoom->numberOfItems() || game.currentRoom->get_isNorthLocked()) ? ui->interactButton->setEnabled(true) : ui->interactButton->setEnabled(false);
-    cout << endl << game.currentRoom->longDescription() << endl;
+
+    if (game.currentRoom->getLIONELpresence()) {
+        ui->bullyButton->setEnabled(true);
+        ui->pushButton_12->setEnabled(true);
+    }
+    else {
+        ui->bullyButton->setEnabled(false);
+        ui->pushButton_12->setEnabled(false);
+
+        (game.currentRoom->getMobPresence()) ? ui->bullyButton->setEnabled(true) : ui->bullyButton->setEnabled(false);
+        (game.currentRoom->getNPCpresence()) ? ui->pushButton_12->setEnabled(true) : ui->pushButton_12->setEnabled(false);
+        (game.currentRoom->numberOfItems() || game.currentRoom->get_isNorthLocked()) ? ui->interactButton->setEnabled(true) : ui->interactButton->setEnabled(false);
+    }
+
+    cout << endl << game.currentRoom->longDescription() << endl
+         << "Number of steps: " << steps.valInt
+         << " (" << steps.valFloat << ")"
+         << endl;
 }
 
 //quit button
@@ -192,6 +220,11 @@ void MainWindow::on_pushButton_8_clicked() {
     Wordle();
 }
 
+void MainWindow::on_pushButton_6_clicked()
+{
+    game.ReadWordleData();
+}
+
 //Map display button
 void MainWindow::on_pushButton_9_clicked()
 {
@@ -227,10 +260,10 @@ void MainWindow::on_pushButton_12_clicked()
         int dNb = game.currentRoom->getNPC()->getDialogNb();
         if (dNb >= 0) {
             game.currentRoom->getNPC()->coutDialog(dNb);
-            dNb--; game.currentRoom->getNPC()->setDialogNb(dNb);
+            game.currentRoom->getNPC()->operator--();
         }
         else {
-            if (game.currentRoom->getNPC()->getLionel()) {
+            if (game.currentRoom->getLIONELpresence()) {
                 finScreen();
                 //ender();
             }
@@ -238,6 +271,24 @@ void MainWindow::on_pushButton_12_clicked()
             cout << endl
                  << game.currentRoom->getNPC()->GetName()
                  << " has nothing else to say to you..."
+                 << endl;
+            ui->pushButton_12->setEnabled(false);
+        }
+    }
+    else if (game.currentRoom->getLIONELpresence()) {
+        int dNb = game.currentRoom->getLionel()->getDialogNb();
+        if (dNb >= 0) {
+            game.currentRoom->getLionel()->coutDialog(dNb);
+            game.currentRoom->getLionel()->operator--();
+        }
+        else {
+            if (game.currentRoom->getLIONELpresence()) {
+                finScreen();
+                //ender();
+            }
+            game.currentRoom->getLionel()->coutDialog(0);
+            cout << endl
+                 << "Lionel has nothing else to say to you..."
                  << endl;
             ui->pushButton_12->setEnabled(false);
         }
@@ -253,12 +304,15 @@ void MainWindow::on_pushButton_12_clicked()
 void MainWindow::on_bullyButton_clicked()
 {
     if(game.currentRoom->getMobPresence()) {
-            game.currentRoom->Bully(game.zorkPlayer, game.currentRoom);
-            ui->bullyButton->setEnabled(false);
+        game.currentRoom->Bully(game.zorkPlayer, game.currentRoom);
+        ui->bullyButton->setEnabled(false);
+    }
+    else if (game.currentRoom->getLIONELpresence()) {
+        finScreen();
     }
     else {
         cout << endl
-             << "You can only bully dumb-looking people..." << endl
+             << "You can only bully ''dumb-looking'' people..." << endl
              << endl;
     }
 }
@@ -286,7 +340,7 @@ void MainWindow::finScreen() {
     this->hide();
 
     label->setStyleSheet("QLabel {color: white;background: blue;}");
-    label->setText("Prosious fired you from the campus.\n You have lost 40K€.");
+    label->setText("Prosious fired you from the campus.\n You have lost 40K€.\n");
 
     label->setAlignment(Qt::AlignCenter);
     label->setWindowTitle("AÏE");
@@ -302,4 +356,28 @@ void MainWindow::ender() {
     //exit(1);
 }
 
+void MainWindow::on_debugger_clicked()
+{
+    ui->pushButton_6->setHidden(0);
+    ui->pushButton_7->setHidden(0);
+    ui->pushButton_8->setHidden(0);
+    ui->ender->setHidden(0);
+    ui->closeDebugger->setHidden(0);
+}
+
+
+void MainWindow::on_closeDebugger_clicked()
+{
+    ui->pushButton_6->setHidden(1);
+    ui->pushButton_7->setHidden(1);
+    ui->pushButton_8->setHidden(1);
+    ui->ender->setHidden(1);
+    ui->closeDebugger->setHidden(1);
+}
+
+
+void MainWindow::on_ender_clicked()
+{
+    finScreen();
+}
 
